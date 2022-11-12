@@ -2,6 +2,12 @@
 
 Bolt is a utility mod for modpacks that adds numerous tweaks and miscelaneous features that are configurable.
 
+Bolt is used by all Luna Pixel modpacks, and more. Simply add it to your modpack and run it once to generate the default configuration!
+
+The original aim of Bolt is to minimize the amount of QoL and Tweak based mods in modpacks, allowing for more mods that actually add content - users prefer to download modpacks with about 200-350 mods, QoL and Tweak mods take up 15% of that, with a rough average of 30-50 mods being single mixins and little tweaks.
+
+Currently, Bolt merges together 8 different mods; however it will expand to be much larger in the future.
+
 ## Tweaks, Features and Utilities
 
 |Config Key|Default Value|Description|
