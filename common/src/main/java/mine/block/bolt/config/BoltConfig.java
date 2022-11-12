@@ -37,6 +37,7 @@ public class BoltConfig {
     @Environment(EnvType.CLIENT)
     public static final BoltConfigValue<Integer> despawnBlinkStartTime = createValue("despawnBlinkStartTime", Integer.class, 20);
     public static final BoltConfigValue<BrandingConfig> modpackBranding = createValue("modpackBranding", BrandingConfig.class, new BrandingConfig());
+    public static final BoltConfigValue<Boolean> enableCutThroughGrass = createValue("enableCutThroughGrass", Boolean.class, false);
     private static <T> BoltConfigValue<T> createValue(String name, Class<T> classOfT, @Nullable T defaultValue) {
         BoltConfigValue<T> value = new BoltConfigValue<T>(name, classOfT, defaultValue);
         registeredConfigValues.add(value);

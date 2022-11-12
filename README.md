@@ -23,7 +23,7 @@ Currently, Bolt merges together 8 different mods; however it will expand to be m
 | `despawnBlinkSpeed`          | 6000                                | The amount of time in milliseconds before the item should start blinking.                                                                                                                              |
 | `despawnBlinkStartTime`      | 20                                  | The amount of time in milliseconds between a single blink.                                                                                                                                             |
 | `modpackBranding`            | false                               | This will be appended to crash logs to provide infomation to the user and whoever is giving support.<br/>It will also be used to check if servers are compatible with the currently installed modpack. |
-
+| `enableCutThroughGrass`      | false                               | Allows the player to attack entities through grass.                                                                                                                                                    |
 ### Always Enabled Utilities
 
 Features that are always enabled, as it makes zero sense to make them disablable or impossible to be configured are as followed:
@@ -31,6 +31,10 @@ Features that are always enabled, as it makes zero sense to make them disablable
 #### Mixin Blame
 
 When a crash involves a mixin, Bolt will show what mod the mixin is from, and output nessecary infomation.
+
+#### Nether Portal Linking Fix
+
+Fixes issues with linking nether portals that are rotated facing West or East
 
 ### Modpack Branding
 

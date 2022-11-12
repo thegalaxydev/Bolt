@@ -13,6 +13,7 @@
   ],
   "client": [
     "client.MixinChatHud",
+    "client.MixinMinecraftClient",
     "client.MixinPackEntry",
     "client.MixinServerEntry",
     "client.MixinServerInfo",
