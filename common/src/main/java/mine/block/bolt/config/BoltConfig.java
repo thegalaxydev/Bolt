@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class BoltConfig {
     private static final ArrayList<BoltConfigValue<?>> registeredConfigValues = new ArrayList<>();
 
-    public static final BoltConfigValue<Boolean> clearChatHistory = createValue("clearChatHistory", Boolean.class, true);
+    public static final BoltConfigValue<Boolean> clearChatHistory = createValue("clearChatHistory", Boolean.class, false);
     public static final BoltConfigValue<Boolean> disableChatClearing = createValue("disableChatClearing", Boolean.class, true);
     public static final BoltConfigValue<Boolean> disableResourcePackWarning = createValue("disableResourcePackWarning", Boolean.class, true);
     public static final BoltConfigValue<Boolean> skipLoadingTransition = createValue("skipLoadingTransition", Boolean.class, true);
@@ -34,6 +34,7 @@ public class BoltConfig {
     public static Path CONFIG_PATH;
 
     public static void initialize() throws IOException {
+        System.out.println("Bolt is loading config from: " + CONFIG_PATH);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         if(Files.notExists(CONFIG_PATH)) {
             // No config yet. Create default.
