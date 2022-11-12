@@ -1,9 +1,6 @@
 package mine.block.bolt.config;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -36,6 +33,7 @@ public class BoltConfigValue<T> {
 
     public JsonElement serialize() {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        if(this.currentValue == null) return JsonNull.INSTANCE;
         return gson.toJsonTree(this.currentValue);
     }
 

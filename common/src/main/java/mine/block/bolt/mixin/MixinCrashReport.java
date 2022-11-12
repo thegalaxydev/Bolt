@@ -1,6 +1,9 @@
 package mine.block.bolt.mixin;
 
+import mine.block.bolt.config.BoltConfig;
 import net.minecraft.util.crash.CrashReport;
+import net.minecraft.util.crash.CrashReportSection;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
@@ -19,8 +22,22 @@ import java.util.Set;
 public abstract class MixinCrashReport {
 	@Shadow private StackTraceElement[] stackTrace;
 
+	@Shadow @Final private List<CrashReportSection> otherSections;
+
 	@Inject(method = "addStackTrace(Ljava/lang/StringBuilder;)V", at = @At(value = "FIELD", target = "Lnet/minecraft/util/crash/CrashReport;otherSections:Ljava/util/List;"))
 	private void mixintrace_addTrace(StringBuilder crashReportBuilder, CallbackInfo ci) {
+		var branding = BoltConfig.modpackName.get();
+		if (branding.enabled) {
+			var section = new CrashReportSection("Modpack Infomation");
+			section.add("Modpack Name", branding.modpackName);
+			section.add("Modpack Version", branding.modpackVersion);
+			section.add("Modpack Authors", branding.modpackAuthor);
+			section.add("Modpack Website", branding.modpackWebsite);
+			section.add("Modpack Support", branding.modpackSupport);
+
+			this.otherSections.add(section);
+		}
+
 		int trailingNewlineCount = 0;
 		if (crashReportBuilder.charAt(crashReportBuilder.length() - 1) == '\n') {
 			crashReportBuilder.deleteCharAt(crashReportBuilder.length() - 1);

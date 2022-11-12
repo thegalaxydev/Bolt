@@ -3,6 +3,7 @@ package mine.block.bolt.config;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import mine.block.bolt.config.prims.BrandingConfig;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
@@ -24,7 +25,7 @@ public class BoltConfig {
     public static final BoltConfigValue<Boolean> enableItemDespawnBlink = createValue("enableItemDespawnBlink", Boolean.class, true);
     public static final BoltConfigValue<Integer> despawnBlinkSpeed = createValue("despawnBlinkSpeed", Integer.class, 6000);
     public static final BoltConfigValue<Integer> despawnBlinkStartTime = createValue("despawnBlinkStartTime", Integer.class, 20);
-
+    public static final BoltConfigValue<BrandingConfig> modpackName = createValue("modpackBranding", BrandingConfig.class, new BrandingConfig());
     private static <T> BoltConfigValue<T> createValue(String name, Class<T> classOfT, @Nullable T defaultValue) {
         BoltConfigValue<T> value = new BoltConfigValue<T>(name, classOfT, defaultValue);
         registeredConfigValues.add(value);
