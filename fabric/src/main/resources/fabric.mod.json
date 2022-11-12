@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "bolt",
+  "version": "${version}",
+  "name": "Bolt",
+  "description": "A utility mod for modpacks that adds tweaks and useful features for modpack developers.",
+  "authors": [
+    "mineblock11"
+  ],
+  "contact": {
+    "website": "https://mineblock11.dev/",
+    "repo": "https://github.com/11mods/bolt",
+    "issues": "https://github.com/11mods/bolt/issues"
+  },
+  "license": "MIT",
+  "icon": "icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "mine.block.bolt.fabric.BoltFabric"
+    ]
+  },
+  "mixins": [
+    "bolt.mixins.json",
+    "bolt-common.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.10",
+    "minecraft": ">=1.19.2"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "mine.block.bolt.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "MixinCrashReport"
+  ],
+  "client": [
+    "client.MixinChatHud",
+    "client.MixinIntegratedServerLoader",
+    "client.MixinPackEntry",
+    "client.MixinSplashOverlay",
+    "client.MixinTitleScreen",
+    "client.MixinToastManager$Entry",
+    "client.MixinToastVisibility"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
