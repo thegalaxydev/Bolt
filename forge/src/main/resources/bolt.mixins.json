@@ -4,9 +4,9 @@
   "package": "mine.block.bolt.forge.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "MixinLevelProperties"
   ],
   "client": [
-    "client.MixinLevelProperties",
     "client.MixinWorldSelectionListEntry"
   ],
   "injectors": {

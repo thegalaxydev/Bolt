@@ -8,11 +8,10 @@
   ],
   "client": [
     "client.MixinChatHud",
-    "client.MixinIntegratedServerLoader",
     "client.MixinPackEntry",
     "client.MixinSplashOverlay",
     "client.MixinTitleScreen",
-    "client.MixinToastManager$Entry",
+    "client.MixinToastManagerEntry",
     "client.MixinToastVisibility"
   ],
   "injectors": {

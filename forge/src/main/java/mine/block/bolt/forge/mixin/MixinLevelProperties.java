@@ -1,5 +1,7 @@
-package mine.block.bolt.forge.mixin.client;
+package mine.block.bolt.forge.mixin;
 
+import com.mojang.serialization.Lifecycle;
+import mine.block.bolt.config.BoltConfig;
 import net.minecraft.world.level.LevelProperties;
 import org.spongepowered.asm.mixin.Mixin;
 
@@ -14,6 +16,15 @@ public class MixinLevelProperties {
     @Inject(method = "hasConfirmedExperimentalWarning", at = @At("HEAD"), cancellable = true, remap = false)
     private void ignoreExperimentalSettingsScreen(CallbackInfoReturnable<Boolean> cir)
     {
-       cir.setReturnValue(true);
+       if(BoltConfig.disableExperimentalWarning.get()) {
+           cir.setReturnValue(true);
+       }
+    }
+
+    @Inject(method = "getLifecycle", at = @At("HEAD"), cancellable = true)
+    private void forceStableLifeCycle(CallbackInfoReturnable<Lifecycle> cir) {
+        if(BoltConfig.disableExperimentalWarning.get()) {
+            cir.setReturnValue(Lifecycle.stable());
+        }
     }
 }

@@ -1,4 +1,4 @@
-package mine.block.bolt.mixin.client;
+package mine.block.bolt.fabric.mixin;
 
 import com.mojang.serialization.Lifecycle;
 import mine.block.bolt.config.BoltConfig;
@@ -22,7 +22,7 @@ public abstract class MixinIntegratedServerLoader {
     )
     private Lifecycle removeAdviceOnLoad(SaveProperties properties) {
         Lifecycle original = properties.getLifecycle();
-        if (original == Lifecycle.stable() || original == Lifecycle.experimental() && BoltConfig.disableExperimentalWarning.get()) {
+        if ((original == Lifecycle.stable() || original == Lifecycle.experimental()) && BoltConfig.disableExperimentalWarning.get()) {
             return Lifecycle.stable();
         } else {
             return original;
