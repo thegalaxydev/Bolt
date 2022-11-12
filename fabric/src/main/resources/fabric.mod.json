@@ -18,6 +18,9 @@
   "entrypoints": {
     "main": [
       "mine.block.bolt.fabric.BoltFabric"
+    ],
+    "client": [
+      "mine.block.bolt.fabric.BoltFabricClient"
     ]
   },
   "mixins": [

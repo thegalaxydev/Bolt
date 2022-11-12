@@ -26,14 +26,15 @@ public abstract class MixinCrashReport {
 
 	@Inject(method = "addStackTrace(Ljava/lang/StringBuilder;)V", at = @At(value = "FIELD", target = "Lnet/minecraft/util/crash/CrashReport;otherSections:Ljava/util/List;"))
 	private void mixintrace_addTrace(StringBuilder crashReportBuilder, CallbackInfo ci) {
-		var branding = BoltConfig.modpackName.get();
+		var branding = BoltConfig.modpackBranding.get();
 		if (branding.enabled) {
 			var section = new CrashReportSection("Modpack Infomation");
 			section.add("Modpack Name", branding.modpackName);
 			section.add("Modpack Version", branding.modpackVersion);
-			section.add("Modpack Authors", branding.modpackAuthor);
-			section.add("Modpack Website", branding.modpackWebsite);
-			section.add("Modpack Support", branding.modpackSupport);
+			section.add("Modpack Authors", String.join(", ", branding.modpackAuthors));
+			section.add("Modpack Website", branding.URLS.website);
+			section.add("Modpack Support", branding.URLS.support);
+			section.add("Modpack Repository", branding.URLS.repository);
 
 			this.otherSections.add(section);
 		}

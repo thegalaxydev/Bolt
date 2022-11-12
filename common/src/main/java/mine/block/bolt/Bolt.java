@@ -1,6 +1,7 @@
 package mine.block.bolt;
 
 import mine.block.bolt.config.BoltConfig;
+import net.minecraft.util.Identifier;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -15,5 +16,9 @@ public class Bolt {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static Identifier id(String path) {
+        return new Identifier("bolt", path);
     }
 }

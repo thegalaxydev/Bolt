@@ -4,11 +4,16 @@
   "package": "mine.block.bolt.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "MixinCrashReport"
+    "MixinCrashReport",
+    "MixinServerMetadata",
+    "MixinServerMetadata$ServerStatusSerializerMixin"
   ],
   "client": [
     "client.MixinChatHud",
     "client.MixinPackEntry",
+    "client.MixinServerEntry",
+    "client.MixinServerInfo",
+    "client.MixinServerListPinger",
     "client.MixinSplashOverlay",
     "client.MixinTitleScreen",
     "client.MixinToastManagerEntry",
