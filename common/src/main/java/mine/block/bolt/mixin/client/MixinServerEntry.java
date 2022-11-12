@@ -2,7 +2,7 @@ package mine.block.bolt.mixin.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import mine.block.bolt.Bolt;
-import mine.block.bolt.brand.BrandingInfoFetcher;
+import mine.block.bolt.fetchers.BrandingInfoFetcher;
 import mine.block.bolt.config.BoltConfig;
 import mine.block.bolt.brand.BrandingConfig;
 import net.minecraft.client.gui.DrawableHelper;

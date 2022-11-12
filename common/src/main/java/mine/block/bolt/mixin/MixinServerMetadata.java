@@ -2,7 +2,7 @@ package mine.block.bolt.mixin;
 
 import com.google.gson.*;
 import mine.block.bolt.brand.BrandingConfig;
-import mine.block.bolt.brand.BrandingInfoFetcher;
+import mine.block.bolt.fetchers.BrandingInfoFetcher;
 import mine.block.bolt.config.BoltConfig;
 import net.minecraft.server.ServerMetadata;
 import net.minecraft.util.JsonHelper;

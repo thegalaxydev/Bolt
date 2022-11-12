@@ -1,6 +1,6 @@
 package mine.block.bolt.mixin.client;
 
-import mine.block.bolt.brand.BrandingInfoFetcher;
+import mine.block.bolt.fetchers.BrandingInfoFetcher;
 import net.minecraft.client.network.ServerInfo;
 import net.minecraft.network.packet.s2c.query.QueryResponseS2CPacket;
 import org.spongepowered.asm.mixin.Final;

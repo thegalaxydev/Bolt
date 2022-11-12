@@ -10,8 +10,10 @@ import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.transformer.ClassInfo;
 
+import java.io.File;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,13 +26,13 @@ public abstract class MixinCrashReport {
 
 	@Shadow @Final private List<CrashReportSection> otherSections;
 
-	@Inject(method = "addStackTrace(Ljava/lang/StringBuilder;)V", at = @At(value = "FIELD", target = "Lnet/minecraft/util/crash/CrashReport;otherSections:Ljava/util/List;"))
-	private void mixintrace_addTrace(StringBuilder crashReportBuilder, CallbackInfo ci) {
+	@Inject(method = "writeToFile", at = @At("HEAD"))
+	private void addBranding(File file, CallbackInfoReturnable<Boolean> cir) {
 		var branding = BoltConfig.modpackBranding.get();
 		if (branding.enabled) {
-			var section = new CrashReportSection("Modpack Infomation");
+			var section = new CrashReportSection("Modpack Information");
 			section.add("Modpack Name", branding.modpackName);
-			section.add("Modpack Version", branding.modpackVersion);
+			section.add("Modpack Version", branding.modpackVersion.semName);
 			section.add("Modpack Authors", String.join(", ", branding.modpackAuthors));
 			section.add("Modpack Website", branding.URLS.website);
 			section.add("Modpack Support", branding.URLS.support);
@@ -38,7 +40,10 @@ public abstract class MixinCrashReport {
 
 			this.otherSections.add(section);
 		}
+	}
 
+	@Inject(method = "addStackTrace(Ljava/lang/StringBuilder;)V", at = @At(value = "FIELD", target = "Lnet/minecraft/util/crash/CrashReport;otherSections:Ljava/util/List;"))
+	private void addTrace(StringBuilder crashReportBuilder, CallbackInfo ci) {
 		int trailingNewlineCount = 0;
 		if (crashReportBuilder.charAt(crashReportBuilder.length() - 1) == '\n') {
 			crashReportBuilder.deleteCharAt(crashReportBuilder.length() - 1);
