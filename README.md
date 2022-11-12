@@ -10,19 +10,19 @@ Currently, Bolt merges together 8 different mods; however it will expand to be m
 
 ## Tweaks, Features and Utilities
 
-|Config Key| Default Value   |Description|
-|----------|-----------------|-----------|
-|`clearChatHistory`| false |Allows you to control whether chat history is cleared.|
-|`disableChatClearing`| true |Chat messages don't fade out, letting you scroll up infinitely since you joined the world/server.|
-|`disableResourcePackWarning`| true |Disables that annoying resource pack warning.|
-|`skipLoadingTransition`| true Skips the loading screen fade.|
-|`skipToastFadeOut`| true |Skips toast's fading out effect and disables the fade out sound effect.|
-|`skipTitleFadeIn`| true |Skips the title screen's fade in effect.|
-|`disableExperimentalWarning`| true |Disables the experimental warning when joining modded worlds or worlds with datapacks enabled.|
-|`enableItemDespawnBlink`| true |Makes it so items blink when they're about to despawn.|
-|`despawnBlinkSpeed`| 6000 |The amount of time in milliseconds before the item should start blinking.|
-|`despawnBlinkStartTime`| 20 |The amount of time in milliseconds between a single blink.|
-|`modpackBranding`| false |This will be appended to crash logs to provide infomation to the user and whoever is giving support.|
+| Config Key                   | Default Value                       | Description                                                                                                                                                                                            |
+|------------------------------|-------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `clearChatHistory`           | false                               | Allows you to control whether chat history is cleared.                                                                                                                                                 |
+| `disableChatClearing`        | true                                | Chat messages don't fade out, letting you scroll up infinitely since you joined the world/server.                                                                                                      |
+| `disableResourcePackWarning` | true                                | Disables that annoying resource pack warning.                                                                                                                                                          |
+| `skipLoadingTransition`      | true Skips the loading screen fade. |
+| `skipToastFadeOut`           | true                                | Skips toast's fading out effect and disables the fade out sound effect.                                                                                                                                |
+| `skipTitleFadeIn`            | true                                | Skips the title screen's fade in effect.                                                                                                                                                               |
+| `disableExperimentalWarning` | true                                | Disables the experimental warning when joining modded worlds or worlds with datapacks enabled.                                                                                                         |
+| `enableItemDespawnBlink`     | true                                | Makes it so items blink when they're about to despawn.                                                                                                                                                 |
+| `despawnBlinkSpeed`          | 6000                                | The amount of time in milliseconds before the item should start blinking.                                                                                                                              |
+| `despawnBlinkStartTime`      | 20                                  | The amount of time in milliseconds between a single blink.                                                                                                                                             |
+| `modpackBranding`            | false                               | This will be appended to crash logs to provide infomation to the user and whoever is giving support.<br/>It will also be used to check if servers are compatible with the currently installed modpack. |
 
 ### Always Enabled Utilities
 
@@ -38,16 +38,29 @@ When the game crashes, Bolt will add modpack information to the crash log, allow
 
 By default, this is disabled. You will need to enable it and fill out your details into the `modpackBranding` config value.
 
+Example: (Better MC Fabric)
+
 ```json
 {
   // ...
   "modpackBranding": {
     "enabled": true,
-    "modpackName": "Modpack Name",
-    "modpackVersion": "1.0.0",
-    "modpackAuthor": "Authors",
-    "modpackWebsite": "https://example.com",
-    "modpackSupport": "https://discord.gg/example"
+    "modpackName": "Better MC [Fabric]",
+    "modpackVersion": {
+      "ID": "69420",
+      "semName": "v18",
+      "releaseType": "Release"
+    },
+    "modpackID": "better-mc-fabric",
+    "modpackAuthors": [
+      "Luna Pixel Studios",
+      "Shark person"
+    ],
+    "URLS": {
+      "website": "https://luna-pixel-studios/",
+      "support": "https://luna-pixel-studios/",
+      "repository": "https://luna-pixel-studios/"
+    }
   },
   // ...
 }
