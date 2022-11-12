@@ -3,6 +3,7 @@
 
 *.iml
 *.ipr
+/run-server/
 *.iws
 
 # IntelliJ
