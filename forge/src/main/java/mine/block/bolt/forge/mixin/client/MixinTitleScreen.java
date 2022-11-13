@@ -20,18 +20,9 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 // Cross Platform - Disable TitleScreen Fade
 @Mixin(TitleScreen.class)
 public abstract class MixinTitleScreen extends Screen {
-    @Mutable
-    @Shadow @Final private boolean doBackgroundFade;
 
     protected MixinTitleScreen(Text title) {
         super(title);
-    }
-
-    @Inject(at = @At("TAIL"), method = "<init>(Z)V")
-    private void init(CallbackInfo ci) {
-        if(BoltConfig.skipTitleFadeIn.get()) {
-            this.doBackgroundFade = false;
-        }
     }
 
 //    @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/TitleScreen;drawStringWithShadow(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/font/TextRenderer;Ljava/lang/String;III)V"), method = "render")
