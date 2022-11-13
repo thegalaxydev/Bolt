@@ -71,3 +71,11 @@ publishing {
         // Add repositories to publish to here.
     }
 }
+
+loom {
+    forge {
+        mixinConfig "bolt-forge.mixins.json"
+        mixinConfig "bolt-common.mixins.json"
+        //mixinConfig "architectury-common.mixins.json"
+    }
+}

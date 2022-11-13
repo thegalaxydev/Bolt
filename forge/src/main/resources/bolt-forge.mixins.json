@@ -7,7 +7,9 @@
     "MixinLevelProperties"
   ],
   "client": [
-    "client.MixinWorldSelectionListEntry"
+    "client.MixinWorldSelectionListEntry",
+    "client.MixinMinecraftClient",
+    "client.MixinTitleScreen"
   ],
   "injectors": {
     "defaultRequire": 1

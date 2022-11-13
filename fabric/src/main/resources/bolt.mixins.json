@@ -6,7 +6,9 @@
   "mixins": [
   ],
   "client": [
-    "MixinIntegratedServerLoader"
+    "MixinIntegratedServerLoader",
+    "client.MixinMinecraftClient",
+    "client.MixinTitleScreen"
   ],
   "injectors": {
     "defaultRequire": 1

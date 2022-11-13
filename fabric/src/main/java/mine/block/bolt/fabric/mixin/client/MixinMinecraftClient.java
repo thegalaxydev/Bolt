@@ -1,4 +1,4 @@
-package mine.block.bolt.mixin.client;
+package mine.block.bolt.fabric.mixin.client;
 
 import mine.block.bolt.config.BoltConfig;
 import net.minecraft.block.BlockState;
