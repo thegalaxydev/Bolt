@@ -29,18 +29,14 @@ public class BoltForge {
 
     @Mod.EventBusSubscriber(modid = Bolt.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class Events {
-        private static final Field field;
         public Events() {
             MinecraftForge.EVENT_BUS.addListener(Events::screenInit);
-        }
-        static {
-            (field = ObfuscationReflectionHelper.findField(TitleScreen.class, "f_96714_")).setAccessible(true);
         }
 
         public static void screenInit(ScreenEvent.Init.Post event) {
             try {
                 if (event.getScreen() instanceof TitleScreen titleScreen) {
-                    field.set(titleScreen, false);
+                    titleScreen.doBackgroundFade = false;
                 }
             } catch (Exception e) {
                 e.printStackTrace();
