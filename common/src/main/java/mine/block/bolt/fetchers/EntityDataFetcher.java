@@ -3,6 +3,10 @@ package mine.block.bolt.fetchers;
 import net.minecraft.nbt.NbtCompound;
 
 public interface EntityDataFetcher {
-    NbtCompound getCustomNbtData();
-    void setCustomNbtData(NbtCompound tag);
+    default NbtCompound getCustomNbtData() {
+        throw new AssertionError();
+    }
+    default void setCustomNbtData(NbtCompound tag) {
+        throw new AssertionError();
+    }
 }

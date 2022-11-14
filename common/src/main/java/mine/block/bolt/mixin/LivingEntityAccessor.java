@@ -8,5 +8,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin(LivingEntity.class)
 public interface LivingEntityAccessor {
     @Accessor
-    BlockPos getLastBlockPos();
+    default BlockPos getLastBlockPos() {
+        throw new AssertionError();
+    }
 }

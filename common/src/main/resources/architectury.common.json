@@ -1,4 +1,5 @@
 {
+    "accessWidener": "bolt-common.accesswidener",
     "injected_interfaces": {
         "net/minecraft/class_642": ["mine/block/bolt/fetchers/BrandingInfoFetcher"],
         "net/minecraft/class_3222": ["mine/block/bolt/fetchers/EntityDataFetcher"],

@@ -3,7 +3,11 @@ package mine.block.bolt.extension;
 import mine.block.bolt.brand.BrandingConfig;
 
 public interface SimpleBrandingVersionExtension {
-    public BrandingConfig.VersionInformation getVersion();
+    default public BrandingConfig.VersionInformation getVersion() {
+        throw new AssertionError();
+    }
 
-    public void setVersion(BrandingConfig.VersionInformation version);
+    default public void setVersion(BrandingConfig.VersionInformation version) {
+        throw new AssertionError();
+    }
 }
