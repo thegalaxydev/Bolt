@@ -59,11 +59,11 @@ public class WorldListWidgetMixin {
             String string2 = "selectWorld.backupQuestion.snapshot";
             MutableText mutableText = Text.translatable(string2);
 
-            MutableText text = Text.translatable("bolt.selectWorld.backupWarning.modpack", "<MODPACKVERSIONNOTSAVED>", versionInformation.semName, localData.modpackName, localData.modpackVersion.semName);
+            MutableText text = Text.translatable("bolt.selectWorld.backupWarning.modpack", "<MODPACKNAMENOTSAVED>", versionInformation.semName, localData.modpackName, localData.modpackVersion.semName);
             this.client.setScreen(new BackupPromptScreen(this.screen, (backup, eraseCache) -> {
                 if (backup) {
                     String string = this.level.getName();
-                    try (LevelStorage.Session session = this.client.getLevelStorage().createSession(string);){
+                    try (LevelStorage.Session session = this.client.getLevelStorage().createSession(string)){
                         EditWorldScreen.backupLevel(session);
                     }
                     catch (IOException iOException) {
