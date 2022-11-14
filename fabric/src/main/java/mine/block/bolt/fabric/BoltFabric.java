@@ -13,17 +13,5 @@ public class BoltFabric implements ModInitializer {
     @Override
     public void onInitialize() {
         Bolt.init(FabricLoader.getInstance().getConfigDir());
-
-        if(BoltConfig.enableHideHandKeybind.get()) {
-            KeyBindingHelper.registerKeyBinding(Keybinds.hideHandKeybind);
-            ClientTickEvents.END_CLIENT_TICK.register(client -> {
-                while (Keybinds.hideHandKeybind.wasPressed()) {
-                    Constants.canHideHand = true;
-                }
-                Constants.canHideHand = false;
-            });
-        }
-
-
     }
 }
