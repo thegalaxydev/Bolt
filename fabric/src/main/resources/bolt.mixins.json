@@ -8,6 +8,7 @@
   "client": [
     "MixinIntegratedServerLoader",
     "client.MixinMinecraftClient",
+    "client.MixinServerListPinger",
     "client.MixinTitleScreen"
   ],
   "injectors": {

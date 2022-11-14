@@ -8,7 +8,8 @@
   ],
   "client": [
     "client.MixinWorldSelectionListEntry",
-    "client.MixinTitleScreen"
+    "client.MixinTitleScreen",
+    "client.MixinServerListPinger"
   ],
   "injectors": {
     "defaultRequire": 1

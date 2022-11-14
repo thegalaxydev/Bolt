@@ -39,16 +39,17 @@ public class MixinServerEntry {
             int m = mouseX - x;
             int n = mouseY - y;
 
-            BrandingInfoFetcher data = this.server;
+            ServerInfo data = this.server;
             BrandingConfig pingData = data.getBrandData();
             BrandingConfig localData = BoltConfig.modpackBranding.get();
             int idx = 0;
             int idy = 0;
             String tooltip;
 
+            if (this.server.ping < 0) return;
             if (pingData == null) {
-                idx = 0;
-                idy = 16;
+                idx = 16;
+                idy = 32;
                 tooltip = Text.translatable("bolt.gui.tooltip.boltless_server").getString();
             } else if (Utils.comparePingData(pingData)) {
                 idx = 0;

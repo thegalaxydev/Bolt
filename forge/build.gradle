@@ -3,9 +3,9 @@ plugins {
 }
 
 loom {
+    accessWidenerPath = project(":common").loom.accessWidenerPath
+    System.out.println(accessWidenerPath.get())
     forge {
-
-        accessWidenerPath = project(":common").loom.accessWidenerPath
 
         mixinConfig "bolt-forge.mixins.json"
         mixinConfig "bolt-common.mixins.json"
@@ -13,19 +13,17 @@ loom {
 
         convertAccessWideners = true
         extraAccessWideners.add loom.accessWidenerPath.get().asFile.name
+        System.out.println(extraAccessWideners.get())
+    }
+
+    interfaceInjection {
+        interfaceInjectionSourceSets.add project(":common").sourceSets.main
     }
 }
 
 architectury {
     platformSetupLoomIde()
     forge()
-}
-
-loom {
-    forge {
-        mixinConfig "bolt.mixins.json"
-        mixinConfig "bolt-common.mixins.json"
-    }
 }
 
 configurations {
@@ -53,6 +51,7 @@ processResources {
 
 shadowJar {
     exclude "fabric.mod.json"
+    exclude "architectury.common.json"
 
     configurations = [project.configurations.shadowCommon]
     classifier "dev-shadow"
