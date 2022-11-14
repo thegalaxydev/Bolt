@@ -16,25 +16,16 @@ import java.util.ArrayList;
 
 public class BoltConfig {
     private static final ArrayList<BoltConfigValue<?>> registeredConfigValues = new ArrayList<>();
-
-    @Environment(EnvType.CLIENT)
+    
     public static final BoltConfigValue<Boolean> clearChatHistory = createValue("clearChatHistory", Boolean.class, false);
-    @Environment(EnvType.CLIENT)
     public static final BoltConfigValue<Boolean> disableChatClearing = createValue("disableChatClearing", Boolean.class, true);
-    @Environment(EnvType.CLIENT)
     public static final BoltConfigValue<Boolean> disableResourcePackWarning = createValue("disableResourcePackWarning", Boolean.class, true);
-    @Environment(EnvType.CLIENT)
     public static final BoltConfigValue<Boolean> skipLoadingTransition = createValue("skipLoadingTransition", Boolean.class, true);
-    @Environment(EnvType.CLIENT)
     public static final BoltConfigValue<Boolean> skipToastFadeOut = createValue("skipToastFadeOut", Boolean.class, false);
-    @Environment(EnvType.CLIENT)
     public static final BoltConfigValue<Boolean> skipTitleFadeIn = createValue("skipTitleFadeIn", Boolean.class, true);
     public static final BoltConfigValue<Boolean> disableExperimentalWarning = createValue("disableExperimentalWarning", Boolean.class, true);
-    @Environment(EnvType.CLIENT)
     public static final BoltConfigValue<Boolean> enableItemDespawnBlink = createValue("enableItemDespawnBlink", Boolean.class, true);
-    @Environment(EnvType.CLIENT)
     public static final BoltConfigValue<Integer> despawnBlinkSpeed = createValue("despawnBlinkSpeed", Integer.class, 6000);
-    @Environment(EnvType.CLIENT)
     public static final BoltConfigValue<Integer> despawnBlinkStartTime = createValue("despawnBlinkStartTime", Integer.class, 20);
     public static final BoltConfigValue<BrandingConfig> modpackBranding = createValue("modpackBranding", BrandingConfig.class, new BrandingConfig());
     public static final BoltConfigValue<Boolean> enableCutThroughGrass = createValue("enableCutThroughGrass", Boolean.class, false);

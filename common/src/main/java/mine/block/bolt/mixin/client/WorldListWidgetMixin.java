@@ -52,7 +52,7 @@ public class WorldListWidgetMixin {
             if (this.level.isUnavailable()) {
                 return;
             }
-            BrandingConfig.VersionInformation versionInformation = ((SimpleBrandingVersionExtension)(Object)level.getLevelInfo()).getVersion();
+            BrandingConfig.VersionInformation versionInformation = level.getLevelInfo().getVersion();
             //BrandingConfig pingData = data.getBrandData();
             BrandingConfig localData = BoltConfig.modpackBranding.get();
 
@@ -95,7 +95,7 @@ public class WorldListWidgetMixin {
 //                    return ;
 //                }
 //            };
-            BrandingConfig.VersionInformation versionInformation = ((SimpleBrandingVersionExtension)(Object)level.getLevelInfo()).getVersion();
+            BrandingConfig.VersionInformation versionInformation = level.getLevelInfo().getVersion();
             //BrandingConfig pingData = data.getBrandData();
             BrandingConfig localData = BoltConfig.modpackBranding.get();
             int idx;

@@ -19,9 +19,7 @@ public class MixinServerListPinger {
 
         @Inject(method = "onResponse(Lnet/minecraft/network/packet/s2c/query/QueryResponseS2CPacket;)V", at = @At("HEAD"))
         public void onResponse(QueryResponseS2CPacket packet, CallbackInfo ci) {
-            if (packet.getServerMetadata() instanceof BrandingInfoFetcher brandInfo) {
-                BrandingInfoFetcher serverInfo = (BrandingInfoFetcher) this.field_3776;
-                serverInfo.setBrandData(brandInfo.getBrandData());
-            }
+            BrandingInfoFetcher serverInfo = this.field_3776;
+            serverInfo.setBrandData(packet.getServerMetadata().getBrandData());
         }
 }

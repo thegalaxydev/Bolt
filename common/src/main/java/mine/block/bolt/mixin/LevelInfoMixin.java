@@ -30,7 +30,7 @@ public class LevelInfoMixin implements SimpleBrandingVersionExtension {
 
     @Inject(method = "withGameMode", at = @At("RETURN"))
     public void bolt$withGameMode(GameMode mode, CallbackInfoReturnable<LevelInfo> cir) {
-        ((LevelInfoMixin)(Object)cir.getReturnValue()).setVersion(version);
+        cir.getReturnValue().setVersion(version);
     }
 
     @Inject(method = "fromDynamic", at = @At("RETURN"))
@@ -39,21 +39,21 @@ public class LevelInfoMixin implements SimpleBrandingVersionExtension {
         information.ID = dynamic.get("modpackVersion").get("ID").asString("69420");
         information.semName = dynamic.get("modpackVersion").get("semName").asString("1.0.0");
         information.releaseType = dynamic.get("modpackVersion").get("releaseType").asString("Beta");
-        ((SimpleBrandingVersionExtension)(Object)cir.getReturnValue()).setVersion(information);
+        cir.getReturnValue().setVersion(information);
     }
 
     @Inject(method = "withDifficulty", at = @At("RETURN"))
     public void bolt$withDifficulty(Difficulty difficulty, CallbackInfoReturnable<LevelInfo> cir) {
-        ((LevelInfoMixin)(Object)cir.getReturnValue()).setVersion(version);
+        cir.getReturnValue().setVersion(version);
     }
 
     @Inject(method = "withDataPackSettings", at = @At("RETURN"))
     public void bolt$withDataPackSettings(DataPackSettings dataPackSettings, CallbackInfoReturnable<LevelInfo> cir) {
-        ((LevelInfoMixin)(Object)cir.getReturnValue()).setVersion(version);
+        cir.getReturnValue().setVersion(version);
     }
 
     @Inject(method = "withCopiedGameRules", at = @At("RETURN"))
     public void bolt$withCopiedGameRules(CallbackInfoReturnable<LevelInfo> cir) {
-        ((LevelInfoMixin)(Object)cir.getReturnValue()).setVersion(version);
+        cir.getReturnValue().setVersion(version);
     }
 }

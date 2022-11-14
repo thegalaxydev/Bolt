@@ -45,7 +45,7 @@ public class LevelPropertiesMixin implements SimpleBrandingVersionExtension {
         information.ID = dynamic.get("modpackVersion").get("ID").asString("69420");
         information.semName = dynamic.get("modpackVersion").get("semName").asString("1.0.0");
         information.releaseType = dynamic.get("modpackVersion").get("releaseType").asString("Beta");
-        ((SimpleBrandingVersionExtension)properties).setVersion(information);
+        properties.setVersion(information);
     }
 
 

@@ -39,7 +39,7 @@ public class MixinServerEntry {
             int m = mouseX - x;
             int n = mouseY - y;
 
-            BrandingInfoFetcher data = (BrandingInfoFetcher) this.server;
+            BrandingInfoFetcher data = this.server;
             BrandingConfig pingData = data.getBrandData();
             BrandingConfig localData = BoltConfig.modpackBranding.get();
             int idx;

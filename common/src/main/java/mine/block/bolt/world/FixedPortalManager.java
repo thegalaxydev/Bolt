@@ -34,8 +34,8 @@ public class FixedPortalManager {
         return null;
     }
 
-    public static NbtList getPlayerPortalList(PlayerEntity player) {
-        NbtCompound data = ((EntityDataFetcher) (Object) player).getCustomNbtData();
+    public static NbtList getPlayerPortalList(ServerPlayerEntity player) {
+        NbtCompound data = player.getCustomNbtData();
         NbtList list = data.getList("FixedPortalList", NbtElement.COMPOUND_TYPE);
         data.put("FixedPortalList", list);
         return list;
