@@ -56,7 +56,7 @@ public class BoltForge {
         }
 
         @SubscribeEvent
-        public static void registeKeys(RegisterKeyMappingsEvent event) {
+        public static void registerKeys(RegisterKeyMappingsEvent event) {
             event.register(Keybinds.hideHandKeybind);
         }
 
