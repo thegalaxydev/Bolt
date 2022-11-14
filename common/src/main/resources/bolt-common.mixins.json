@@ -9,12 +9,14 @@
     "LevelPropertiesMixin",
     "LivingEntityAccessor",
     "MixinCrashReport",
+    "MixinLivingEntity",
     "MixinServerEntity",
     "MixinServerMetadata",
     "MixinServerMetadata$ServerStatusSerializerMixin"
   ],
   "client": [
     "client.MixinChatHud",
+    "client.MixinClientPlayerEntity",
     "client.MixinPackEntry",
     "client.MixinServerEntry",
     "client.MixinServerInfo",
