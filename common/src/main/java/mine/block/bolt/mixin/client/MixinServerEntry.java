@@ -62,7 +62,7 @@ public class MixinServerEntry {
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
             RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
             RenderSystem.setShaderTexture(0, Bolt.id("textures/gui/bolt-icons.png"));
-            DrawableHelper.drawTexture(matrices, x + entryWidth - 18, y + 10, 16, 16, 0, idx, 16, 16, 32, 32);
+            DrawableHelper.drawTexture(matrices, x + entryWidth - 18, y + 10, 16, 16, 0, idx, 16, 16, 64, 64);
 
             int relativeMouseX = mouseX - x;
             int relativeMouseY = mouseY - y;
