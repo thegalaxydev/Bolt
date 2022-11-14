@@ -42,7 +42,7 @@ public class MixinServerEntity implements EntityDataFetcher {
         final RegistryKey<World> toDim = destWorld.getRegistryKey();
         final RegistryKey<World> OVERWORLD = World.OVERWORLD;
         final RegistryKey<World> THE_NETHER = World.NETHER;
-        boolean isPlayerCurrentlyInPortal = player.getInNetherPortal();
+        boolean isPlayerCurrentlyInPortal = ((EntityAccessor)player).getInNetherPortal();
         boolean isTeleportBetweenNetherAndOverworld = (fromDim == OVERWORLD && toDim == THE_NETHER)
                 || (fromDim == THE_NETHER && toDim == OVERWORLD);
         if (isPlayerCurrentlyInPortal && isTeleportBetweenNetherAndOverworld) {
