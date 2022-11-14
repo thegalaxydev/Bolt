@@ -115,7 +115,7 @@ public class WorldListWidgetMixin {
                 //tooltip = Text.translatable("bolt.gui.tooltip.incompatible_server", (pingData.modpackName + " " + pingData.modpackVersion.semName), (localData.modpackName + " " + localData.modpackVersion.semName)).getString();
                 tooltip = Text.translatable("bolt.gui.tooltip.incompatible_server", (versionInformation.modpackName + " " + versionInformation.semName), (localData.modpackName + " " + localData.modpackVersion.semName)).getString();
             }
-            
+
 
             tooltip = tooltip + "\n \n" + Formatting.YELLOW + "⚡ Bolt";
 

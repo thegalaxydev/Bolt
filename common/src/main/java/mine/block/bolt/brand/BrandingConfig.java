@@ -4,6 +4,7 @@ import com.mojang.serialization.OptionalDynamic;
 
 public class BrandingConfig {
     public boolean enabled = false;
+    public boolean titleScreenBrander = true; // disable if MenuyFanc is installed
     public String modpackName = "Modpack Name";
     public VersionInformation modpackVersion = new VersionInformation();
     public String modpackID = "";
