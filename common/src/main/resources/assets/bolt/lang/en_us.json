@@ -1,6 +1,9 @@
 {
   "bolt.gui.tooltip.compatible_server": "§3Server: %s\n§2Client (You): %s",
   "bolt.gui.tooltip.incompatible_server": "§6You are not running the same version of the modpack as the server :(\n \n§4Server: %s\n§4Client (You): %s",
+  "bolt.gui.tooltip.compatible_world": "§3World: %s\n§2Client (You): %s",
+  "bolt.gui.tooltip.incompatible_world": "§6You are not running the same version of the modpack as this world :(\n \n§4World: %s\n§4Client (You): %s",
+
 
   "bolt.selectWorld.backupWarning.modpack": "This world was last played in %s %s; you are on %s %s. Please make a backup in case you experience world corruptions!"
 }
