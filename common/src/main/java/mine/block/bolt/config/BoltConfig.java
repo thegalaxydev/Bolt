@@ -26,6 +26,8 @@ public class BoltConfig {
     public static final BoltConfigValue<Boolean> disableExperimentalWarning = createValue("disableExperimentalWarning", Boolean.class, true);
     public static final BoltConfigValue<Boolean> enableItemDespawnBlink = createValue("enableItemDespawnBlink", Boolean.class, true);
     public static final BoltConfigValue<Integer> despawnBlinkSpeed = createValue("despawnBlinkSpeed", Integer.class, 6000);
+    public static final BoltConfigValue<Boolean> enableQuickCrouch = createValue("enableQuickCrouch", Boolean.class, false);
+    public static final BoltConfigValue<Float> quickCrouchSpeed = createValue("quickCrouchSpeed", Float.class, 10.0F);
     public static final BoltConfigValue<Integer> despawnBlinkStartTime = createValue("despawnBlinkStartTime", Integer.class, 20);
     public static final BoltConfigValue<BrandingConfig> modpackBranding = createValue("modpackBranding", BrandingConfig.class, new BrandingConfig());
     public static final BoltConfigValue<Boolean> enableCutThroughGrass = createValue("enableCutThroughGrass", Boolean.class, false);
