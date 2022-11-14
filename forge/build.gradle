@@ -1,6 +1,21 @@
 plugins {
     id "com.github.johnrengelman.shadow" version "7.1.2"
 }
+
+loom {
+    forge {
+
+        accessWidenerPath = project(":common").loom.accessWidenerPath
+
+        mixinConfig "bolt-forge.mixins.json"
+        mixinConfig "bolt-common.mixins.json"
+        //mixinConfig "architectury-common.mixins.json"
+
+        convertAccessWideners = true
+        extraAccessWideners.add loom.accessWidenerPath.get().asFile.name
+    }
+}
+
 architectury {
     platformSetupLoomIde()
     forge()

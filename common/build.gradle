@@ -8,6 +8,10 @@ architectury {
     common()
 }
 
+loom {
+    accessWidenerPath = file("src/main/resources/bolt-common.accessWidener")
+}
+
 publishing {
     publications {
         mavenCommon(MavenPublication) {

@@ -5,6 +5,7 @@ import mine.block.bolt.Bolt;
 import mine.block.bolt.fetchers.BrandingInfoFetcher;
 import mine.block.bolt.config.BoltConfig;
 import mine.block.bolt.brand.BrandingConfig;
+import mine.block.bolt.util.Utils;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerServerListWidget;
 import net.minecraft.client.render.GameRenderer;
@@ -16,7 +17,6 @@ import net.minecraft.client.network.ServerInfo;
 import net.minecraft.client.util.math.MatrixStack;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -34,13 +34,7 @@ public class MixinServerEntry {
         @Final
         private MultiplayerScreen screen;
 
-        @Unique
-        private static boolean comparePingData(BrandingConfig pingData) {
-            BrandingConfig config = BoltConfig.modpackBranding.get();
-            return config.modpackID.equals(pingData.modpackID) && config.modpackName.equals(pingData.modpackName) && config.modpackVersion.ID.equals(pingData.modpackVersion.ID);
-        }
-
-        @Inject(method = "render(Lnet/minecraft/client/util/math/MatrixStack;IIIIIIIZF)V", at = @At(value = "HEAD"))
+    @Inject(method = "render(Lnet/minecraft/client/util/math/MatrixStack;IIIIIIIZF)V", at = @At(value = "HEAD"))
         private void render(MatrixStack matrices, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta, CallbackInfo ci) {
             int m = mouseX - x;
             int n = mouseY - y;
@@ -55,7 +49,7 @@ public class MixinServerEntry {
                 return;
             }
 
-            if (comparePingData(pingData)) {
+            if (Utils.comparePingData(pingData)) {
                 idx = 0;
                 tooltip = Text.translatable("bolt.gui.tooltip.compatible_server", Formatting.GRAY + (pingData.modpackName + " " + pingData.modpackVersion.semName) + Formatting.RESET, Formatting.GRAY + (localData.modpackName + " " + localData.modpackVersion.semName) + Formatting.RESET).getString();
             } else {
@@ -68,7 +62,7 @@ public class MixinServerEntry {
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
             RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
             RenderSystem.setShaderTexture(0, Bolt.id("textures/gui/compat-icons.png"));
-            DrawableHelper.drawTexture(matrices, x + entryWidth - 18, y + 10, 16, 16, 0, idx, 16, 16, 16, 32);
+            DrawableHelper.drawTexture(matrices, x + entryWidth - 18, y + 10, 16, 16, 0, idx, 16, 16, 32, 32);
 
             int relativeMouseX = mouseX - x;
             int relativeMouseY = mouseY - y;
