@@ -37,9 +37,10 @@ public abstract class MixinTitleScreen extends Screen {
     private void init(Args args) {
         MatrixStack matrixStack = args.get(0);
         TextRenderer textRenderer = args.get(1);
-        int x = args.get(2);
-        int y = args.get(3);
-        int color = args.get(4);
+        String string = args.get(2);
+        int x = args.get(3);
+        int y = args.get(4);
+        int color = args.get(5);
 
         TitleScreen.drawStringWithShadow(matrixStack, textRenderer, BoltConfig.modpackBranding.get().modpackName, 2, this.height - 10 - textRenderer.fontHeight, color);
     }
