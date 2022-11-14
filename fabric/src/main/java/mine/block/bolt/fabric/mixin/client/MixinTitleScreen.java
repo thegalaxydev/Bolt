@@ -35,7 +35,7 @@ public abstract class MixinTitleScreen extends Screen {
 
     @ModifyArgs(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/TitleScreen;drawStringWithShadow(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/font/TextRenderer;Ljava/lang/String;III)V"), method = "render")
     private void init(Args args) {
-        if (!BoltConfig.modpackBranding.get().titleScreenBrander) return;
+        if (!BoltConfig.modpackBranding.get().enableTitlescreenBranding) return;
         MatrixStack matrixStack = args.get(0);
         TextRenderer textRenderer = args.get(1);
         String string = args.get(2);

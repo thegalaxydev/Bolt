@@ -47,12 +47,13 @@ public class LevelPropertiesMixin implements SimpleBrandingVersionExtension {
     @Inject(method = "readProperties", at = @At("RETURN"))
     private static void bolt$readProperties(Dynamic<NbtElement> dynamic, DataFixer dataFixer, int dataVersion, @Nullable NbtCompound playerData, LevelInfo levelInfo, SaveVersionInfo saveVersionInfo, GeneratorOptions generatorOptions, Lifecycle lifecycle, CallbackInfoReturnable<LevelProperties> cir) {
         LevelProperties properties = cir.getReturnValue();
-        SimpleVersionInformation information = new SimpleVersionInformation();
-        information.ID = dynamic.get("modpackVersion").get("ID").asString(DEFAULT.ID);
-        information.semName = dynamic.get("modpackVersion").get("semName").asString(DEFAULT.semName);
-        information.releaseType = dynamic.get("modpackVersion").get("releaseType").asString(DEFAULT.releaseType);
-        information.modpackID = dynamic.get("modpackVersion").get("modpackID").asString(DEFAULT.modpackID);
-        information.modpackName = dynamic.get("modpackVersion").get("modpackName").asString(DEFAULT.modpackName);
+        SimpleVersionInformation information = new SimpleVersionInformation(
+                dynamic.get("modpackVersion").get("modpackName").asString(DEFAULT.modpackName()),
+                dynamic.get("modpackVersion").get("modpackID").asString(DEFAULT.modpackID()),
+                dynamic.get("modpackVersion").get("ID").asString(DEFAULT.ID()),
+                dynamic.get("modpackVersion").get("semName").asString(DEFAULT.semName()),
+                dynamic.get("modpackVersion").get("releaseType").asString(DEFAULT.releaseType())
+        );
         properties.setVersion(information);
     }
 

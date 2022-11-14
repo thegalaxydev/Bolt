@@ -60,7 +60,7 @@ public class WorldListWidgetMixin {
             String string2 = "selectWorld.backupQuestion.snapshot";
             MutableText mutableText = Text.translatable(string2);
 
-            MutableText text = Text.translatable("bolt.selectWorld.backupWarning.modpack", versionInformation.modpackName, versionInformation.semName, localData.modpackName, localData.modpackVersion.semName);
+            MutableText text = Text.translatable("bolt.selectWorld.backupWarning.modpack", versionInformation.modpackName(), versionInformation.semName(), localData.modpackName, localData.modpackVersion.semName);
             this.client.setScreen(new BackupPromptScreen(this.screen, (backup, eraseCache) -> {
                 if (backup) {
                     String string = this.level.getName();
@@ -109,11 +109,11 @@ public class WorldListWidgetMixin {
             if (compareVersion(versionInformation)) {
                 idx = 0;
                 //tooltip = Text.translatable("bolt.gui.tooltip.compatible_server", Formatting.GRAY + (pingData.modpackName + " " + pingData.modpackVersion.semName) + Formatting.RESET, Formatting.GRAY + (localData.modpackName + " " + localData.modpackVersion.semName) + Formatting.RESET).getString();
-                tooltip = Text.translatable("bolt.gui.tooltip.compatible_server", Formatting.GRAY + (versionInformation.modpackName + " " + versionInformation.semName) + Formatting.RESET, Formatting.GRAY + (localData.modpackName + " " + localData.modpackVersion.semName) + Formatting.RESET).getString();
+                tooltip = Text.translatable("bolt.gui.tooltip.compatible_server", Formatting.GRAY + (versionInformation.modpackName() + " " + versionInformation.semName()) + Formatting.RESET, Formatting.GRAY + (localData.modpackName + " " + localData.modpackVersion.semName) + Formatting.RESET).getString();
             } else {
                 idx = 16;
                 //tooltip = Text.translatable("bolt.gui.tooltip.incompatible_server", (pingData.modpackName + " " + pingData.modpackVersion.semName), (localData.modpackName + " " + localData.modpackVersion.semName)).getString();
-                tooltip = Text.translatable("bolt.gui.tooltip.incompatible_server", (versionInformation.modpackName + " " + versionInformation.semName), (localData.modpackName + " " + localData.modpackVersion.semName)).getString();
+                tooltip = Text.translatable("bolt.gui.tooltip.incompatible_server", (versionInformation.modpackName() + " " + versionInformation.semName()), (localData.modpackName + " " + localData.modpackVersion.semName)).getString();
             }
 
 

@@ -12,6 +12,6 @@ public class Utils {
 
     public static boolean compareVersion(SimpleVersionInformation pingData) {
         BrandingConfig config = BoltConfig.modpackBranding.get();
-        return config.modpackVersion.semName.equals(pingData.semName) && config.modpackVersion.ID.equals(pingData.ID) && config.modpackVersion.releaseType.equals(pingData.releaseType) && config.modpackID.equals(pingData.modpackID) && config.modpackName.equals(pingData.modpackName);
+        return config.modpackVersion.semName.equals(pingData.semName()) && config.modpackVersion.ID.equals(pingData.ID()) && config.modpackVersion.releaseType.equals(pingData.releaseType()) && config.modpackID.equals(pingData.modpackID()) && config.modpackName.equals(pingData.modpackName());
     }
 }

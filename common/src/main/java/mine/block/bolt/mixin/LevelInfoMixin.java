@@ -37,12 +37,13 @@ public class LevelInfoMixin implements SimpleBrandingVersionExtension {
 
     @Inject(method = "fromDynamic", at = @At("RETURN"))
     private static void bolt$fromDynamic(Dynamic<?> dynamic, DataPackSettings dataPackSettings, CallbackInfoReturnable<LevelInfo> cir) {
-        SimpleVersionInformation information = new SimpleVersionInformation();
-        information.ID = dynamic.get("modpackVersion").get("ID").asString(DEFAULT.ID);
-        information.semName = dynamic.get("modpackVersion").get("semName").asString(DEFAULT.semName);
-        information.releaseType = dynamic.get("modpackVersion").get("releaseType").asString(DEFAULT.releaseType);
-        information.modpackID = dynamic.get("modpackVersion").get("modpackID").asString(DEFAULT.modpackID);
-        information.modpackName = dynamic.get("modpackVersion").get("modpackName").asString(DEFAULT.modpackName);
+        SimpleVersionInformation information = new SimpleVersionInformation(
+                dynamic.get("modpackVersion").get("modpackName").asString(DEFAULT.modpackName()),
+                dynamic.get("modpackVersion").get("modpackID").asString(DEFAULT.modpackID()),
+                dynamic.get("modpackVersion").get("ID").asString(DEFAULT.ID()),
+                dynamic.get("modpackVersion").get("semName").asString(DEFAULT.semName()),
+                dynamic.get("modpackVersion").get("releaseType").asString(DEFAULT.releaseType())
+        );
         cir.getReturnValue().setVersion(information);
     }
 

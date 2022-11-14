@@ -16,7 +16,7 @@ public class Bolt {
         BoltConfig.CONFIG_PATH = configPath.resolve("bolt.config.json");
         try {
             BoltConfig.initialize();
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
         //WorldListWidget
