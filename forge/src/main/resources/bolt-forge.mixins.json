@@ -9,7 +9,8 @@
   "client": [
     "client.MixinWorldSelectionListEntry",
     "client.MixinTitleScreen",
-    "client.MixinServerListPinger"
+    "client.MixinServerListPinger",
+    "client.MixinServerEntry"
   ],
   "injectors": {
     "defaultRequire": 1

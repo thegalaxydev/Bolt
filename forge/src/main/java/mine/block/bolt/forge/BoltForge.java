@@ -2,6 +2,7 @@ package mine.block.bolt.forge;
 
 import mine.block.bolt.Bolt;
 import mine.block.bolt.client.ItemBlinkRenderer;
+import mine.block.bolt.config.BoltConfig;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.entity.EntityType;
 import net.minecraftforge.api.distmarker.Dist;
@@ -34,6 +35,7 @@ public class BoltForge {
         }
 
         public static void screenInit(ScreenEvent.Init.Post event) {
+            if (BoltConfig.modpackBranding.get().titleScreenBrander)
             try {
                 if (event.getScreen() instanceof TitleScreen titleScreen) {
                     titleScreen.doBackgroundFade = false;

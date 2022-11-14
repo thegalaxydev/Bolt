@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
-// Cross Platform - Disable TitleScreen Fade
+// Forge - Disable TitleScreen Fade
 @Mixin(TitleScreen.class)
 public abstract class MixinTitleScreen extends Screen {
 
