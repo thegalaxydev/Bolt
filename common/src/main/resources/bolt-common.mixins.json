@@ -15,6 +15,7 @@
   ],
   "client": [
     "client.MixinChatHud",
+    "client.MixinGameRenderer",
     "client.MixinPackEntry",
     "client.MixinServerEntry",
     "client.MixinServerInfo",
