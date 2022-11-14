@@ -25,6 +25,7 @@ import net.minecraft.world.level.storage.LevelSummary;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -45,14 +46,17 @@ public class WorldListWidgetMixin {
         @Shadow @Final private SelectWorldScreen screen;
 
         @Shadow @Final private LevelSummary level;
+        @Unique
+        private boolean isCompatible;
 
         @Shadow protected abstract void start();
 
         @Inject(method = "play", at = @At("HEAD"), cancellable = true)
         private void bolt$play(CallbackInfo ci) {
-            if (this.level.isUnavailable()) {
+            if (this.level.isUnavailable() || this.isCompatible) {
                 return;
             }
+
             SimpleVersionInformation versionInformation = level.getLevelInfo().getVersion();
             //BrandingConfig pingData = data.getBrandData();
             BrandingConfig localData = BoltConfig.modpackBranding.get();
@@ -108,12 +112,14 @@ public class WorldListWidgetMixin {
 
             if (compareVersion(versionInformation)) {
                 idx = 0;
+                this.isCompatible = true;
                 //tooltip = Text.translatable("bolt.gui.tooltip.compatible_server", Formatting.GRAY + (pingData.modpackName + " " + pingData.modpackVersion.semName) + Formatting.RESET, Formatting.GRAY + (localData.modpackName + " " + localData.modpackVersion.semName) + Formatting.RESET).getString();
-                tooltip = Text.translatable("bolt.gui.tooltip.compatible_server", Formatting.GRAY + (versionInformation.modpackName() + " " + versionInformation.semName()) + Formatting.RESET, Formatting.GRAY + (localData.modpackName + " " + localData.modpackVersion.semName) + Formatting.RESET).getString();
+                tooltip = Text.translatable("bolt.gui.tooltip.compatible_world", Formatting.GRAY + (versionInformation.modpackName() + " " + versionInformation.semName()) + Formatting.RESET, Formatting.GRAY + (localData.modpackName + " " + localData.modpackVersion.semName) + Formatting.RESET).getString();
             } else {
                 idx = 16;
+                this.isCompatible = false;
                 //tooltip = Text.translatable("bolt.gui.tooltip.incompatible_server", (pingData.modpackName + " " + pingData.modpackVersion.semName), (localData.modpackName + " " + localData.modpackVersion.semName)).getString();
-                tooltip = Text.translatable("bolt.gui.tooltip.incompatible_server", (versionInformation.modpackName() + " " + versionInformation.semName()), (localData.modpackName + " " + localData.modpackVersion.semName)).getString();
+                tooltip = Text.translatable("bolt.gui.tooltip.incompatible_world", (versionInformation.modpackName() + " " + versionInformation.semName()), (localData.modpackName + " " + localData.modpackVersion.semName)).getString();
             }
 
 
