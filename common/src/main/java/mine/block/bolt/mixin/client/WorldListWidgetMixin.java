@@ -121,7 +121,7 @@ public class WorldListWidgetMixin {
 
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
             RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
-            RenderSystem.setShaderTexture(0, Bolt.id("textures/gui/compat-icons.png"));
+            RenderSystem.setShaderTexture(0, Bolt.id("textures/gui/bolt-icons.png"));
             DrawableHelper.drawTexture(matrices, x + entryWidth - 18, y + 10, 16, 16, idx, 0, 16, 16, 32, 32);
 
             int relativeMouseX = mouseX - x;
