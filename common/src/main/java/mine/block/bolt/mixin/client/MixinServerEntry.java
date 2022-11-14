@@ -42,14 +42,15 @@ public class MixinServerEntry {
             BrandingInfoFetcher data = this.server;
             BrandingConfig pingData = data.getBrandData();
             BrandingConfig localData = BoltConfig.modpackBranding.get();
-            int idx;
+            int idx = 0;
+            int idy = 0;
             String tooltip;
 
             if (pingData == null) {
-                return;
-            }
-
-            if (Utils.comparePingData(pingData)) {
+                idx = 0;
+                idy = 16;
+                tooltip = Text.translatable("bolt.gui.tooltip.boltless_server").getString();
+            } else if (Utils.comparePingData(pingData)) {
                 idx = 0;
                 tooltip = Text.translatable("bolt.gui.tooltip.compatible_server", Formatting.GRAY + (pingData.modpackName + " " + pingData.modpackVersion.semName) + Formatting.RESET, Formatting.GRAY + (localData.modpackName + " " + localData.modpackVersion.semName) + Formatting.RESET).getString();
             } else {
@@ -62,7 +63,7 @@ public class MixinServerEntry {
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
             RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
             RenderSystem.setShaderTexture(0, Bolt.id("textures/gui/bolt-icons.png"));
-            DrawableHelper.drawTexture(matrices, x + entryWidth - 18, y + 10, 16, 16, 0, idx, 16, 16, 64, 64);
+            DrawableHelper.drawTexture(matrices, x + entryWidth - 18, y + 10, 16, 16, idy, idx, 16, 16, 64, 64);
 
             int relativeMouseX = mouseX - x;
             int relativeMouseY = mouseY - y;

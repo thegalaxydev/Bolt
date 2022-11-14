@@ -2,12 +2,12 @@ package mine.block.bolt.mixin;
 
 import com.mojang.serialization.Dynamic;
 import mine.block.bolt.brand.BrandingConfig;
+import mine.block.bolt.brand.SimpleVersionInformation;
 import mine.block.bolt.extension.SimpleBrandingVersionExtension;
 import net.minecraft.resource.DataPackSettings;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.GameMode;
 import net.minecraft.world.level.LevelInfo;
-import net.minecraft.world.level.LevelProperties;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
@@ -15,16 +15,18 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import static mine.block.bolt.brand.SimpleVersionInformation.DEFAULT;
+
 @Mixin(LevelInfo.class)
 public class LevelInfoMixin implements SimpleBrandingVersionExtension {
-    private @Final @Mutable BrandingConfig.VersionInformation version;
+    private @Final @Mutable SimpleVersionInformation version;
     @Override
-    public BrandingConfig.VersionInformation getVersion() {
+    public SimpleVersionInformation getVersion() {
         return version;
     }
 
     @Override
-    public void setVersion(BrandingConfig.VersionInformation version) {
+    public void setVersion(SimpleVersionInformation version) {
         this.version = version;
     }
 
@@ -35,10 +37,12 @@ public class LevelInfoMixin implements SimpleBrandingVersionExtension {
 
     @Inject(method = "fromDynamic", at = @At("RETURN"))
     private static void bolt$fromDynamic(Dynamic<?> dynamic, DataPackSettings dataPackSettings, CallbackInfoReturnable<LevelInfo> cir) {
-        BrandingConfig.VersionInformation information = new BrandingConfig.VersionInformation();
-        information.ID = dynamic.get("modpackVersion").get("ID").asString("69420");
-        information.semName = dynamic.get("modpackVersion").get("semName").asString("1.0.0");
-        information.releaseType = dynamic.get("modpackVersion").get("releaseType").asString("Beta");
+        SimpleVersionInformation information = new SimpleVersionInformation();
+        information.ID = dynamic.get("modpackVersion").get("ID").asString(DEFAULT.ID);
+        information.semName = dynamic.get("modpackVersion").get("semName").asString(DEFAULT.semName);
+        information.releaseType = dynamic.get("modpackVersion").get("releaseType").asString(DEFAULT.releaseType);
+        information.modpackID = dynamic.get("modpackVersion").get("modpackID").asString(DEFAULT.modpackID);
+        information.modpackName = dynamic.get("modpackVersion").get("modpackName").asString(DEFAULT.modpackName);
         cir.getReturnValue().setVersion(information);
     }
 

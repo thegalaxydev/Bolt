@@ -4,6 +4,7 @@ import com.mojang.datafixers.DataFixer;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.Lifecycle;
 import mine.block.bolt.brand.BrandingConfig;
+import mine.block.bolt.brand.SimpleVersionInformation;
 import mine.block.bolt.config.BoltConfig;
 import mine.block.bolt.extension.SimpleBrandingVersionExtension;
 import net.minecraft.nbt.NbtCompound;
@@ -23,39 +24,46 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import static mine.block.bolt.brand.SimpleVersionInformation.DEFAULT;
+
 @Mixin(LevelProperties.class)
 public class LevelPropertiesMixin implements SimpleBrandingVersionExtension {
     @Shadow private LevelInfo levelInfo;
-    private @Final @Mutable BrandingConfig.VersionInformation versionInformation;
+    private @Final @Mutable SimpleVersionInformation versionInformation;
 
     @Inject(method = "updateProperties", at = @At("RETURN"))
     private void bolt$updateProperties(DynamicRegistryManager registryManager, NbtCompound levelNbt, NbtCompound playerNbt, CallbackInfo ci) {
-        BrandingConfig.VersionInformation versionInformation = BoltConfig.modpackBranding.get().modpackVersion;
+        BrandingConfig brandingInfo = BoltConfig.modpackBranding.get();
+        BrandingConfig.VersionInformation versionInformation = brandingInfo.modpackVersion;
         NbtCompound modpackVersion = new NbtCompound();
         modpackVersion.putString("ID", versionInformation.ID);
         modpackVersion.putString("releaseType", versionInformation.releaseType);
         modpackVersion.putString("semName", versionInformation.semName);
+        modpackVersion.putString("modpackID", brandingInfo.modpackID);
+        modpackVersion.putString("modpackName", brandingInfo.modpackName);
         levelNbt.put("modpackVersion", modpackVersion);
     }
 
     @Inject(method = "readProperties", at = @At("RETURN"))
     private static void bolt$readProperties(Dynamic<NbtElement> dynamic, DataFixer dataFixer, int dataVersion, @Nullable NbtCompound playerData, LevelInfo levelInfo, SaveVersionInfo saveVersionInfo, GeneratorOptions generatorOptions, Lifecycle lifecycle, CallbackInfoReturnable<LevelProperties> cir) {
         LevelProperties properties = cir.getReturnValue();
-        BrandingConfig.VersionInformation information = new BrandingConfig.VersionInformation();
-        information.ID = dynamic.get("modpackVersion").get("ID").asString("69420");
-        information.semName = dynamic.get("modpackVersion").get("semName").asString("1.0.0");
-        information.releaseType = dynamic.get("modpackVersion").get("releaseType").asString("Beta");
+        SimpleVersionInformation information = new SimpleVersionInformation();
+        information.ID = dynamic.get("modpackVersion").get("ID").asString(DEFAULT.ID);
+        information.semName = dynamic.get("modpackVersion").get("semName").asString(DEFAULT.semName);
+        information.releaseType = dynamic.get("modpackVersion").get("releaseType").asString(DEFAULT.releaseType);
+        information.modpackID = dynamic.get("modpackVersion").get("modpackID").asString(DEFAULT.modpackID);
+        information.modpackName = dynamic.get("modpackVersion").get("modpackName").asString(DEFAULT.modpackName);
         properties.setVersion(information);
     }
 
 
     @Override
-    public BrandingConfig.VersionInformation getVersion() {
+    public SimpleVersionInformation getVersion() {
         return versionInformation;
     }
 
     @Override
-    public void setVersion(BrandingConfig.VersionInformation version) {
+    public void setVersion(SimpleVersionInformation version) {
         this.versionInformation = version;
     }
 }

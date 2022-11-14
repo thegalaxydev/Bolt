@@ -16,6 +16,7 @@ public class BrandingConfig {
         public String semName = "1.0.0";
         public String releaseType = "Beta";
 
+        @Deprecated(forRemoval = true)
         public static VersionInformation deserialize(OptionalDynamic<?> modpackData) {
             VersionInformation versionInformation = new VersionInformation();
             versionInformation.ID = modpackData.get("ID").asString("69420");
@@ -39,6 +40,7 @@ public class BrandingConfig {
         public String support = "https://discord.gg/red-is-the-imposter";
         public String repository = "https://github.com/iamdefinitely/notsus";
 
+        @Deprecated(forRemoval = true)
         public static ContactInformation deserialize(OptionalDynamic<?> modpackData) {
             ContactInformation contactInformation = new ContactInformation();
             contactInformation.website = modpackData.get("website").asString("https://example.com/emergency-meeting");
@@ -48,6 +50,7 @@ public class BrandingConfig {
         }
     }
 
+    @Deprecated(forRemoval = true)
     public static BrandingConfig deserialize(OptionalDynamic<?> modpackData) {
         BrandingConfig brandingConfig = new BrandingConfig();
         brandingConfig.enabled = modpackData.get("enabled").asBoolean(false);

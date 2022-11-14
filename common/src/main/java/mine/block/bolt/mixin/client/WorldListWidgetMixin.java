@@ -3,6 +3,7 @@ package mine.block.bolt.mixin.client;
 import com.mojang.blaze3d.systems.RenderSystem;
 import mine.block.bolt.Bolt;
 import mine.block.bolt.brand.BrandingConfig;
+import mine.block.bolt.brand.SimpleVersionInformation;
 import mine.block.bolt.config.BoltConfig;
 import mine.block.bolt.extension.SimpleBrandingVersionExtension;
 import mine.block.bolt.fetchers.BrandingInfoFetcher;
@@ -52,14 +53,14 @@ public class WorldListWidgetMixin {
             if (this.level.isUnavailable()) {
                 return;
             }
-            BrandingConfig.VersionInformation versionInformation = level.getLevelInfo().getVersion();
+            SimpleVersionInformation versionInformation = level.getLevelInfo().getVersion();
             //BrandingConfig pingData = data.getBrandData();
             BrandingConfig localData = BoltConfig.modpackBranding.get();
 
             String string2 = "selectWorld.backupQuestion.snapshot";
             MutableText mutableText = Text.translatable(string2);
 
-            MutableText text = Text.translatable("bolt.selectWorld.backupWarning.modpack", "<MODPACKNAMENOTSAVED>", versionInformation.semName, localData.modpackName, localData.modpackVersion.semName);
+            MutableText text = Text.translatable("bolt.selectWorld.backupWarning.modpack", versionInformation.modpackName, versionInformation.semName, localData.modpackName, localData.modpackVersion.semName);
             this.client.setScreen(new BackupPromptScreen(this.screen, (backup, eraseCache) -> {
                 if (backup) {
                     String string = this.level.getName();
@@ -95,7 +96,7 @@ public class WorldListWidgetMixin {
 //                    return ;
 //                }
 //            };
-            BrandingConfig.VersionInformation versionInformation = level.getLevelInfo().getVersion();
+            SimpleVersionInformation versionInformation = level.getLevelInfo().getVersion();
             //BrandingConfig pingData = data.getBrandData();
             BrandingConfig localData = BoltConfig.modpackBranding.get();
             int idx;
@@ -108,14 +109,13 @@ public class WorldListWidgetMixin {
             if (compareVersion(versionInformation)) {
                 idx = 0;
                 //tooltip = Text.translatable("bolt.gui.tooltip.compatible_server", Formatting.GRAY + (pingData.modpackName + " " + pingData.modpackVersion.semName) + Formatting.RESET, Formatting.GRAY + (localData.modpackName + " " + localData.modpackVersion.semName) + Formatting.RESET).getString();
-                tooltip = Text.translatable("bolt.gui.tooltip.compatible_server", Formatting.GRAY + localData.modpackVersion.semName + Formatting.RESET).getString();
+                tooltip = Text.translatable("bolt.gui.tooltip.compatible_server", Formatting.GRAY + (versionInformation.modpackName + " " + versionInformation.semName) + Formatting.RESET, Formatting.GRAY + (localData.modpackName + " " + localData.modpackVersion.semName) + Formatting.RESET).getString();
             } else {
                 idx = 16;
                 //tooltip = Text.translatable("bolt.gui.tooltip.incompatible_server", (pingData.modpackName + " " + pingData.modpackVersion.semName), (localData.modpackName + " " + localData.modpackVersion.semName)).getString();
-                tooltip = Text.translatable("bolt.gui.tooltip.incompatible_server", versionInformation.semName, (localData.modpackVersion.semName)).getString();
+                tooltip = Text.translatable("bolt.gui.tooltip.incompatible_server", (versionInformation.modpackName + " " + versionInformation.semName), (localData.modpackName + " " + localData.modpackVersion.semName)).getString();
             }
-
-            System.out.println(versionInformation);
+            
 
             tooltip = tooltip + "\n \n" + Formatting.YELLOW + "⚡ Bolt";
 
