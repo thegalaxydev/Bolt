@@ -35,7 +35,7 @@ public class BoltForge {
         }
 
         public static void screenInit(ScreenEvent.Init.Post event) {
-            if (BoltConfig.modpackBranding.get().titleScreenBrander)
+            if (BoltConfig.modpackBranding.get().enableTitlescreenBranding)
             try {
                 if (event.getScreen() instanceof TitleScreen titleScreen) {
                     titleScreen.doBackgroundFade = false;

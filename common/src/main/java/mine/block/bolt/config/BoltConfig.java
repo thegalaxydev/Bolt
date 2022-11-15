@@ -39,7 +39,7 @@ public class BoltConfig {
 
     public static Path CONFIG_PATH;
 
-    public static void initialize() throws IOException {
+    public static void initialize() throws Exception {
         System.out.println("Bolt is loading config from: " + CONFIG_PATH);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         if(Files.notExists(CONFIG_PATH)) {
@@ -49,14 +49,33 @@ public class BoltConfig {
                 obj.add(registeredConfigValue.getName(), registeredConfigValue.serialize());
             }
 
-            Files.createDirectories(CONFIG_PATH.getParent());
-            Files.writeString(CONFIG_PATH, gson.toJson(obj), Charset.defaultCharset());
-            return;
+            try {
+                Files.createDirectories(CONFIG_PATH.getParent());
+            } catch (Exception e) {
+                throw new Exception("Unable to create the config directory.");
+            }
+
+            try {
+                Files.writeString(CONFIG_PATH, gson.toJson(obj), Charset.defaultCharset());
+            } catch (Exception e) {
+                throw new Exception("Unable to write config to " + CONFIG_PATH.toString());
+            }
         } else {
-            String jsonRaw = Files.readString(CONFIG_PATH, Charset.defaultCharset());
+            String jsonRaw;
+
+            try {
+                jsonRaw = Files.readString(CONFIG_PATH, Charset.defaultCharset());
+            } catch (Exception e) {
+                throw new Exception("Unable to read the config file found at " + CONFIG_PATH.toString());
+            }
+
             JsonObject obj = gson.fromJson(jsonRaw, JsonObject.class);
             for (BoltConfigValue<?> registeredConfigValue : registeredConfigValues) {
-                registeredConfigValue.loadValues(obj);
+                try {
+                    registeredConfigValue.loadValues(obj);
+                } catch (Exception e) {
+                    throw new Exception("Unable to load config value! " + e.getMessage());
+                }
             }
         }
     }

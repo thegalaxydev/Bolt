@@ -1,6 +1,7 @@
 package mine.block.bolt;
 
 import mine.block.bolt.config.BoltConfig;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.GameMenuScreen;
 import net.minecraft.client.gui.screen.world.WorldListWidget;
 import net.minecraft.util.Identifier;
