@@ -10,7 +10,7 @@ Currently, Bolt merges together 8 different mods; however it will expand to be m
 
 ## Tweaks, Features and Utilities
 
-| Config Key                   | Default Value                       | Description                                                                                                                                                                                            |
+| __**Config Key**__           | __**Default Value**__               | __**Description**__                                                                                                                                                                                    |
 |------------------------------|-------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `clearChatHistory`           | false                               | Allows you to control whether chat history is cleared.                                                                                                                                                 |
 | `disableChatClearing`        | true                                | Chat messages don't fade out, letting you scroll up infinitely since you joined the world/server.                                                                                                      |
@@ -24,6 +24,8 @@ Currently, Bolt merges together 8 different mods; however it will expand to be m
 | `despawnBlinkStartTime`      | 20                                  | The amount of time in milliseconds between a single blink.                                                                                                                                             |
 | `modpackBranding`            | false                               | This will be appended to crash logs to provide infomation to the user and whoever is giving support.<br/>It will also be used to check if servers are compatible with the currently installed modpack. |
 | `enableCutThroughGrass`      | false                               | Allows the player to attack entities through grass.                                                                                                                                                    |
+| `enableHideHandKeybind`      | false                               | Allows the hands of the player to be hidden when pressing a keybind (F10 by default)                                                                                                                   |
+
 ### Always Enabled Utilities
 
 Features that are always enabled, as it makes zero sense to make them disablable or impossible to be configured are as followed:
