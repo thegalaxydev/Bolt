@@ -48,7 +48,7 @@ public class MixinServerMetadata implements BrandingInfoFetcher {
             if (jsonObject.has("modpackData")) {
                 BrandingInfoFetcher returnValue = cir.getReturnValue();
                 BrandingConfig newValue = gson.fromJson(gson.toJson(jsonObject.get("modpackData")), BrandingConfig.class);
-                returnValue.setBrandData(JsonHelper.deserialize(jsonObject, "modpackData", jsonDeserializationContext, BrandingConfig.class));
+                returnValue.setBrandData(newValue);
             }
         }
     }

@@ -27,20 +27,21 @@ public class BoltForge {
     public static class Events {
         public Events() {
             MinecraftForge.EVENT_BUS.addListener(Events::screenInit);
+            MinecraftForge.EVENT_BUS.addListener(Events::clientTick);
         }
 
         public static void screenInit(ScreenEvent.Init.Post event) {
-            if (BoltConfig.modpackBranding.get().enableTitlescreenBranding)
-            try {
-                if (event.getScreen() instanceof TitleScreen titleScreen) {
-                    titleScreen.doBackgroundFade = false;
+            if (BoltConfig.skipTitleFadeIn.get()) {
+                try {
+                    if (event.getScreen() instanceof TitleScreen titleScreen) {
+                        titleScreen.doBackgroundFade = false;
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
             }
         }
 
-        @SubscribeEvent
         public static void clientTick(TickEvent.ClientTickEvent tickEvent) {
             if(!Keybinds.hideHandKeybind.isPressed()) {
                 Constants.canHideHand = false;
