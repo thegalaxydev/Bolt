@@ -1,6 +1,7 @@
 package mine.block.bolt.config;
 
 import com.google.gson.*;
+import mine.block.bolt.util.ConfigFailedToLoadException;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -19,17 +20,17 @@ public class BoltConfigValue<T> {
         this.defaultValue.ifPresent(t -> currentValue = t);
     }
 
-    public void loadValues(JsonObject wholeConfigFile) throws Exception {
+    public void loadValues(JsonObject wholeConfigFile) {
         boolean required = defaultValue.isEmpty();
         if(required && !wholeConfigFile.has(name)) {
-            throw new Exception("The following value is required in Bolt's configuration: " + name);
+            throw new ConfigFailedToLoadException("The following value is required in Bolt's configuration: " + name);
         }
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         JsonElement element = wholeConfigFile.get(name);
 
         if(element == null) {
-            throw new Exception("Unable to find the following value in Bolt's configuration or the config was incorrect! " + name);
+            throw new ConfigFailedToLoadException("Unable to find the following value in Bolt's configuration or the config was incorrect! " + name);
         }
 
         @Nullable T value = gson.fromJson(element, classOfT);
