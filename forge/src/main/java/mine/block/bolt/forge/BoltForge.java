@@ -20,7 +20,7 @@ import net.minecraftforge.fml.loading.FMLPaths;
 @Mod(Constants.MOD_ID)
 public class BoltForge {
     public BoltForge() {
-        Bolt.init(FMLPaths.CONFIGDIR.get());
+        Bolt.init();
     }
 
     @Mod.EventBusSubscriber(modid = Constants.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)

@@ -12,6 +12,6 @@ import net.fabricmc.loader.api.FabricLoader;
 public class BoltFabric implements ModInitializer {
     @Override
     public void onInitialize() {
-        Bolt.init(FabricLoader.getInstance().getConfigDir());
+        Bolt.init();
     }
 }
