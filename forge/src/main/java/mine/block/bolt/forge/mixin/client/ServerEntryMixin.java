@@ -20,7 +20,7 @@ public class ServerEntryMixin {
     @Final
     private MultiplayerScreen screen;
 
-    @Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraftforge/client/ForgeHooksClient;drawForgePingInfo(Lnet/minecraft/client/gui/screen/multiplayer/MultiplayerScreen;Lnet/minecraft/client/network/ServerInfo;Lnet/minecraft/client/util/math/MatrixStack;IIIII)V"), remap = false)
+    @Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraftforge/client/ForgeHooksClient;drawForgePingInfo(Lnet/minecraft/client/gui/screen/multiplayer/MultiplayerScreen;Lnet/minecraft/client/network/ServerInfo;Lnet/minecraft/client/util/math/MatrixStack;IIIII)V"))
     private void bolt$render(MultiplayerScreen gui, ServerInfo target, MatrixStack poseStack, int x, int y, int width, int relativeMouseX, int relativeMouseY) {
 
     }
