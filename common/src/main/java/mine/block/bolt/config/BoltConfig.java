@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import mine.block.bolt.brand.BrandingConfig;
+import mine.block.bolt.util.ConfigFailedToLoadException;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import org.jetbrains.annotations.Nullable;
@@ -40,7 +41,7 @@ public class BoltConfig {
 
     public static Path CONFIG_PATH;
 
-    public static void initialize() throws Exception {
+    public static void initialize() {
         System.out.println("Bolt is loading config from: " + CONFIG_PATH);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         if(Files.notExists(CONFIG_PATH)) {
@@ -53,13 +54,13 @@ public class BoltConfig {
             try {
                 Files.createDirectories(CONFIG_PATH.getParent());
             } catch (Exception e) {
-                throw new Exception("Unable to create the config directory.");
+                throw new ConfigFailedToLoadException("Unable to create the config directory.");
             }
 
             try {
                 Files.writeString(CONFIG_PATH, gson.toJson(obj), Charset.defaultCharset());
             } catch (Exception e) {
-                throw new Exception("Unable to write config to " + CONFIG_PATH.toString());
+                throw new ConfigFailedToLoadException("Unable to write config to " + CONFIG_PATH.toString());
             }
         } else {
             String jsonRaw;
@@ -67,15 +68,15 @@ public class BoltConfig {
             try {
                 jsonRaw = Files.readString(CONFIG_PATH, Charset.defaultCharset());
             } catch (Exception e) {
-                throw new Exception("Unable to read the config file found at " + CONFIG_PATH.toString());
+                throw new ConfigFailedToLoadException("Unable to read the config file found at " + CONFIG_PATH.toString());
             }
 
             JsonObject obj = gson.fromJson(jsonRaw, JsonObject.class);
             for (BoltConfigValue<?> registeredConfigValue : registeredConfigValues) {
                 try {
                     registeredConfigValue.loadValues(obj);
-                } catch (Exception e) {
-                    throw new Exception("Unable to load config value! " + e.getMessage());
+                } catch (ConfigFailedToLoadException e) {
+                    throw new ConfigFailedToLoadException("Unable to load config value! " + e.getMessage());
                 }
             }
         }
