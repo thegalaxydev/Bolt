@@ -1,6 +1,7 @@
 package mine.block.bolt;
 
 import mine.block.bolt.config.BoltConfig;
+import mine.block.bolt.util.ConfigFailedToLoadException;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.GameMenuScreen;
 import net.minecraft.client.gui.screen.world.WorldListWidget;
@@ -17,7 +18,7 @@ public class Bolt {
         BoltConfig.CONFIG_PATH = configPath.resolve("bolt.config.json");
         try {
             BoltConfig.initialize();
-        } catch (Exception e) {
+        } catch (ConfigFailedToLoadException e) {
             throw new RuntimeException(e);
         }
         //WorldListWidget
