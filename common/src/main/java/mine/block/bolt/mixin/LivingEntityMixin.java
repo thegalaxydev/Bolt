@@ -11,12 +11,12 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LivingEntity.class)
-public class MixinLivingEntity {
+public class LivingEntityMixin {
     @Shadow
     private float movementSpeed;
 
     @Inject(method = "setMovementSpeed", at = @At(value = "HEAD"), cancellable = true)
-    public void setSpeed(float pSpeed, CallbackInfo ci) {
+    public void bolt$setMovementSpeed(float pSpeed, CallbackInfo ci) {
         if(!BoltConfig.enableQuickCrouch.get()) return;
         LivingEntity livingEntity = (LivingEntity)(Object)this;
         if (livingEntity instanceof PlayerEntity playerEntity) {

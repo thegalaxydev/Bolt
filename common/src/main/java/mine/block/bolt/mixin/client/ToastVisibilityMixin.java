@@ -10,9 +10,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 // Cross Platform - Disable Toast Fade Sound
 @Mixin(Toast.Visibility.class)
-public class MixinToastVisibility {
+public class ToastVisibilityMixin {
     @Inject(method = "playSound", at = @At("HEAD"), cancellable = true)
-    public void playSound(SoundManager soundManager, CallbackInfo ci) {
+    public void bolt$playSound(SoundManager soundManager, CallbackInfo ci) {
         if(BoltConfig.skipToastFadeOut.get()) {
             ci.cancel();
         }

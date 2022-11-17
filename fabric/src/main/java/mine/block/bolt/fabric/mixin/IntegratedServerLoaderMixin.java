@@ -14,13 +14,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 // Experimental Warning
 @Mixin(IntegratedServerLoader.class)
-public abstract class MixinIntegratedServerLoader {
+public abstract class IntegratedServerLoaderMixin {
     @Redirect(
             method = "start(Lnet/minecraft/client/gui/screen/Screen;Ljava/lang/String;ZZ)V",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/SaveProperties;getLifecycle()Lcom/mojang/serialization/Lifecycle;"),
             require = 1
     )
-    private Lifecycle removeAdviceOnLoad(SaveProperties properties) {
+    private Lifecycle bolt$removeAdviceOnLoad(SaveProperties properties) {
         Lifecycle original = properties.getLifecycle();
         if ((original == Lifecycle.stable() || original == Lifecycle.experimental()) && BoltConfig.disableExperimentalWarning.get()) {
             return Lifecycle.stable();
@@ -33,7 +33,7 @@ public abstract class MixinIntegratedServerLoader {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;setScreen(Lnet/minecraft/client/gui/screen/Screen;)V", ordinal = 0),
             cancellable = true
     )
-    private static void removeAdviceOnCreation(MinecraftClient client, CreateWorldScreen parent, Lifecycle lifecycle, Runnable loader, CallbackInfo ci) {
+    private static void bolt$removeAdviceOnCreation(MinecraftClient client, CreateWorldScreen parent, Lifecycle lifecycle, Runnable loader, CallbackInfo ci) {
         if(BoltConfig.disableExperimentalWarning.get()) {
             loader.run();
             ci.cancel();

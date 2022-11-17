@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 // Cross Platform - Disable Resource Pack Warning
 @Mixin(PackListWidget.ResourcePackEntry.class)
-public class MixinPackEntry {
+public class PackEntryMixin {
     @Redirect(
             method = "render",
             at = @At(
@@ -17,7 +17,7 @@ public class MixinPackEntry {
                     target = "Lnet/minecraft/resource/ResourcePackCompatibility;isCompatible()Z"
             )
     )
-    private boolean onRenderRedirectIsCompatible(ResourcePackCompatibility compatibility) {
+    private boolean bolt$onRenderRedirectIsCompatible(ResourcePackCompatibility compatibility) {
         return BoltConfig.disableResourcePackWarning.get() || compatibility.isCompatible();
     }
 
@@ -28,7 +28,7 @@ public class MixinPackEntry {
                     target = "Lnet/minecraft/resource/ResourcePackCompatibility;isCompatible()Z"
             )
     )
-    private boolean onMouseClickedRedirectIsCompatible(ResourcePackCompatibility compatibility) {
+    private boolean bolt$onMouseClickedRedirectIsCompatible(ResourcePackCompatibility compatibility) {
         return BoltConfig.disableResourcePackWarning.get() || compatibility.isCompatible();
     }
 }

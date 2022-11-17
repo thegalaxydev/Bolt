@@ -12,9 +12,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 // Experimental Warning (Forge)
 @Mixin(LevelProperties.class)
-public class MixinLevelProperties {
+public class LevelPropertiesMixin {
     @Inject(method = "hasConfirmedExperimentalWarning", at = @At("HEAD"), cancellable = true, remap = false)
-    private void ignoreExperimentalSettingsScreen(CallbackInfoReturnable<Boolean> cir)
+    private void bolt$ignoreExperimentalSettingsScreen(CallbackInfoReturnable<Boolean> cir)
     {
        if(BoltConfig.disableExperimentalWarning.get()) {
            cir.setReturnValue(true);
@@ -22,7 +22,7 @@ public class MixinLevelProperties {
     }
 
     @Inject(method = "getLifecycle", at = @At("HEAD"), cancellable = true)
-    private void forceStableLifeCycle(CallbackInfoReturnable<Lifecycle> cir) {
+    private void bolt$forceStableLifeCycle(CallbackInfoReturnable<Lifecycle> cir) {
         if(BoltConfig.disableExperimentalWarning.get()) {
             cir.setReturnValue(Lifecycle.stable());
         }

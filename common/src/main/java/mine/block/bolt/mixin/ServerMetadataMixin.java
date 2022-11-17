@@ -2,10 +2,9 @@ package mine.block.bolt.mixin;
 
 import com.google.gson.*;
 import mine.block.bolt.brand.BrandingConfig;
-import mine.block.bolt.fetchers.BrandingInfoFetcher;
+import mine.block.bolt.extension.BrandingInfoExtension;
 import mine.block.bolt.config.BoltConfig;
 import net.minecraft.server.ServerMetadata;
-import net.minecraft.util.JsonHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -15,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.lang.reflect.Type;
 
 @Mixin(ServerMetadata.class)
-public class MixinServerMetadata implements BrandingInfoFetcher {
+public class ServerMetadataMixin implements BrandingInfoExtension {
 
     @Unique public BrandingConfig data;
 
@@ -46,7 +45,7 @@ public class MixinServerMetadata implements BrandingInfoFetcher {
         private void deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext, CallbackInfoReturnable<ServerMetadata> cir) {
             JsonObject jsonObject = jsonElement.getAsJsonObject();
             if (jsonObject.has("modpackData")) {
-                BrandingInfoFetcher returnValue = cir.getReturnValue();
+                BrandingInfoExtension returnValue = cir.getReturnValue();
                 BrandingConfig newValue = gson.fromJson(gson.toJson(jsonObject.get("modpackData")), BrandingConfig.class);
                 returnValue.setBrandData(newValue);
             }

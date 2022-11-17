@@ -1,7 +1,6 @@
 package mine.block.bolt.forge.mixin.client;
 
 
-import mine.block.bolt.fetchers.BrandingInfoFetcher;
 import net.minecraft.client.network.ServerInfo;
 import net.minecraft.server.ServerMetadata;
 import net.minecraftforge.client.ForgeHooksClient;
@@ -11,9 +10,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ForgeHooksClient.class)
-public class MixinForgeClient {
+public class ForgeClientMixin {
     @Inject(method = "processForgeListPingData", at = @At("HEAD"), cancellable = true)
-    private static void processForgeListPingData(ServerMetadata oldPacket, ServerInfo serverData, CallbackInfo ci) {
+    private static void bolt$processForgeListPingData(ServerMetadata oldPacket, ServerInfo serverData, CallbackInfo ci) {
         if (oldPacket.getBrandData() != null) {
             serverData.setBrandData(oldPacket.getBrandData());
             ci.cancel();

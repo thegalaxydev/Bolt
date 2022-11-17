@@ -1,10 +1,10 @@
 {
     "accessWidener": "bolt-common.accesswidener",
     "injected_interfaces": {
-        "net/minecraft/class_642": ["mine/block/bolt/fetchers/BrandingInfoFetcher"],
-        "net/minecraft/class_3222": ["mine/block/bolt/fetchers/EntityDataFetcher"],
+        "net/minecraft/class_642": ["mine/block/bolt/extension/BrandingInfoExtension"],
+        "net/minecraft/class_3222": ["mine/block/bolt/extension/EntityDataExtension"],
         "net/minecraft/class_1940": ["mine/block/bolt/extension/SimpleBrandingVersionExtension"],
         "net/minecraft/class_31": ["mine/block/bolt/extension/SimpleBrandingVersionExtension"],
-        "net/minecraft/class_2926": ["mine/block/bolt/fetchers/BrandingInfoFetcher"]
+        "net/minecraft/class_2926": ["mine/block/bolt/extension/BrandingInfoExtension"]
     }
 }

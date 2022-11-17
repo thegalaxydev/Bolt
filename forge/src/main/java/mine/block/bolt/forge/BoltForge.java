@@ -13,6 +13,7 @@ import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.loading.FMLPaths;
@@ -23,14 +24,12 @@ public class BoltForge {
         Bolt.init();
     }
 
-    @Mod.EventBusSubscriber(modid = Constants.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-    public static class Events {
-        public Events() {
-            MinecraftForge.EVENT_BUS.addListener(Events::screenInit);
-            MinecraftForge.EVENT_BUS.addListener(Events::clientTick);
-        }
+    @Mod.EventBusSubscriber(modid = Constants.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
+    public static class ForgeEvents {
 
-        public static void screenInit(ScreenEvent.Init.Post event) {
+        @SubscribeEvent
+        public static void screenInit(ScreenEvent.Opening event) {
+            System.out.println(BoltConfig.skipTitleFadeIn.get());
             if (BoltConfig.skipTitleFadeIn.get()) {
                 try {
                     if (event.getScreen() instanceof TitleScreen titleScreen) {
@@ -42,15 +41,18 @@ public class BoltForge {
             }
         }
 
+        @SubscribeEvent
         public static void clientTick(TickEvent.ClientTickEvent tickEvent) {
-            if(!Keybinds.hideHandKeybind.isPressed()) {
+            if (!Keybinds.hideHandKeybind.isPressed()) {
                 Constants.canHideHand = false;
             }
             while (Keybinds.hideHandKeybind.wasPressed()) {
                 Constants.canHideHand = true;
             }
         }
-
+    }
+    @Mod.EventBusSubscriber(modid = Constants.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    public static class ModEvents {
         @SubscribeEvent
         public static void registerKeys(RegisterKeyMappingsEvent event) {
             event.register(Keybinds.hideHandKeybind);

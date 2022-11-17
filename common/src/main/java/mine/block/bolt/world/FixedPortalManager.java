@@ -1,6 +1,5 @@
 package mine.block.bolt.world;
 
-import mine.block.bolt.fetchers.EntityDataFetcher;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
