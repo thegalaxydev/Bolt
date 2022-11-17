@@ -1,12 +1,12 @@
 package mine.block.bolt.mixin.client;
 
 import mine.block.bolt.brand.BrandingConfig;
-import mine.block.bolt.fetchers.BrandingInfoFetcher;
+import mine.block.bolt.extension.BrandingInfoExtension;
 import net.minecraft.client.network.ServerInfo;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(ServerInfo.class)
-public class MixinServerInfo implements BrandingInfoFetcher {
+public class ServerInfoMixin implements BrandingInfoExtension {
     private BrandingConfig serverData = null;
 
     @Override

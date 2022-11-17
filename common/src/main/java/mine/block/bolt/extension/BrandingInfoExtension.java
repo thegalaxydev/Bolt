@@ -1,8 +1,8 @@
-package mine.block.bolt.fetchers;
+package mine.block.bolt.extension;
 
 import mine.block.bolt.brand.BrandingConfig;
 
-public interface BrandingInfoFetcher {
+public interface BrandingInfoExtension {
     default void setBrandData(BrandingConfig brandData) {
         throw new AssertionError();
     }

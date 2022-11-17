@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 // Cross Platform - Disable SplashOverlay Fade
 @Mixin(SplashOverlay.class)
-public class MixinSplashOverlay {
+public class SplashOverlayMixin {
     @Mutable
     @Shadow @Final
     private MinecraftClient client;
@@ -22,7 +22,7 @@ public class MixinSplashOverlay {
     private long reloadCompleteTime;
 
     @Inject(method = "render", at = @At("HEAD"))
-    public void injectRenderHead(CallbackInfo ci) {
+    public void bolt$injectRenderHead(CallbackInfo ci) {
         if(BoltConfig.skipLoadingTransition.get()) {
             if (this.reloadCompleteTime > 1) {
                 this.client.setOverlay(null);
@@ -31,14 +31,14 @@ public class MixinSplashOverlay {
     }
 
     @ModifyVariable(method = "withAlpha", at = @At("HEAD"), ordinal = 1, argsOnly = true)
-    private static int modifyWithAlpha(int value) {
+    private static int bolt$modifyWithAlpha(int value) {
         if(BoltConfig.skipLoadingTransition.get()) {
             return 255;
         } else return value;
     }
 
     @ModifyVariable(method = "render", at = @At("STORE"), ordinal = 3)
-    private float modifyOvar(float value) {
+    private float bolt$skipLoadingTransition(float value) {
         if(BoltConfig.skipLoadingTransition.get()) {
             return 1.0f;
         } else return value;

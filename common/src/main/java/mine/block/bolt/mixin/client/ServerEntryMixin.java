@@ -2,7 +2,6 @@ package mine.block.bolt.mixin.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import mine.block.bolt.Bolt;
-import mine.block.bolt.fetchers.BrandingInfoFetcher;
 import mine.block.bolt.config.BoltConfig;
 import mine.block.bolt.brand.BrandingConfig;
 import mine.block.bolt.util.Utils;
@@ -25,7 +24,7 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 @Mixin(value = MultiplayerServerListWidget.ServerEntry.class)
-public class MixinServerEntry {
+public class ServerEntryMixin {
         @Shadow
         @Final
         private ServerInfo server;
@@ -35,7 +34,7 @@ public class MixinServerEntry {
         private MultiplayerScreen screen;
 
     @Inject(method = "render(Lnet/minecraft/client/util/math/MatrixStack;IIIIIIIZF)V", at = @At(value = "HEAD"))
-        private void render(MatrixStack matrices, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta, CallbackInfo ci) {
+        private void bolt$render(MatrixStack matrices, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta, CallbackInfo ci) {
             int m = mouseX - x;
             int n = mouseY - y;
 

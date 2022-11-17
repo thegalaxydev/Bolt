@@ -18,23 +18,23 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 // Fabric - Disable TitleScreen Fade
 @Mixin(TitleScreen.class)
-public abstract class MixinTitleScreen extends Screen {
+public abstract class TitleScreenMixin extends Screen {
     @Mutable
     @Shadow @Final private boolean doBackgroundFade;
 
-    protected MixinTitleScreen(Text title) {
+    protected TitleScreenMixin(Text title) {
         super(title);
     }
 
     @Inject(at = @At("TAIL"), method = "init()V")
-    private void init(CallbackInfo ci) {
+    private void bolt$init(CallbackInfo ci) {
         if(BoltConfig.skipTitleFadeIn.get()) {
             this.doBackgroundFade = false;
         }
     }
 
     @ModifyArgs(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/TitleScreen;drawStringWithShadow(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/font/TextRenderer;Ljava/lang/String;III)V"), method = "render")
-    private void init(Args args) {
+    private void bolt$init(Args args) {
         if (!BoltConfig.modpackBranding.get().enableTitlescreenBranding) return;
         MatrixStack matrixStack = args.get(0);
         TextRenderer textRenderer = args.get(1);

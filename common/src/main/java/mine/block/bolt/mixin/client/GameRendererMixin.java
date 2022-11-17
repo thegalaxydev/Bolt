@@ -10,9 +10,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(GameRenderer.class)
-public class MixinGameRenderer {
+public class GameRendererMixin {
     @Inject(method = "renderHand", at = @At("HEAD"), cancellable = true)
-    public void injectHeadRenderHand(MatrixStack matrices, Camera camera, float tickDelta, CallbackInfo ci) {
+    public void bolt$renderHand(MatrixStack matrices, Camera camera, float tickDelta, CallbackInfo ci) {
         if(Constants.canHideHand) ci.cancel();
     }
 }

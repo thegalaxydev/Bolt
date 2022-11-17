@@ -22,7 +22,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(MinecraftClient.class)
-public class MixinMinecraftClient {
+public class MinecraftClientMixin {
     @Shadow @Nullable public ClientWorld world;
     @Shadow @Nullable public ClientPlayerEntity player;
     @Shadow @Nullable public ClientPlayerInteractionManager interactionManager;
@@ -30,7 +30,7 @@ public class MixinMinecraftClient {
     @Inject(method = "doAttack", at = @At(value = "INVOKE",
             target = "net/minecraft/client/network/ClientPlayerInteractionManager.attackBlock(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/util/math/Direction;)Z"),
             locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
-    private void beforeStartingToBreakBlock(CallbackInfoReturnable<Boolean> cir, boolean flag, BlockHitResult blockhitresult, BlockPos pos) {
+    private void bolt$beforeStartingToBreakBlock(CallbackInfoReturnable<Boolean> cir, boolean flag, BlockHitResult blockhitresult, BlockPos pos) {
         if(BoltConfig.enableCutThroughGrass.get()) {
             BlockState state = world.getBlockState(pos);
             if (state.getCollisionShape(this.world, pos).isEmpty() || state.getHardness(this.world, pos) == 0.0F) {

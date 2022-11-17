@@ -21,13 +21,13 @@ import java.util.Set;
 
 // Mixin Crash Report Helper
 @Mixin(value = CrashReport.class)
-public abstract class MixinCrashReport {
+public abstract class CrashReportMixin {
 	@Shadow private StackTraceElement[] stackTrace;
 
 	@Shadow @Final private List<CrashReportSection> otherSections;
 
 	@Inject(method = "writeToFile", at = @At("HEAD"))
-	private void addBranding(File file, CallbackInfoReturnable<Boolean> cir) {
+	private void bolt$addBranding(File file, CallbackInfoReturnable<Boolean> cir) {
 		var branding = BoltConfig.modpackBranding.get();
 		if (branding.enabled) {
 			var section = new CrashReportSection("Modpack Information");
@@ -43,7 +43,7 @@ public abstract class MixinCrashReport {
 	}
 
 	@Inject(method = "addStackTrace(Ljava/lang/StringBuilder;)V", at = @At(value = "FIELD", target = "Lnet/minecraft/util/crash/CrashReport;otherSections:Ljava/util/List;"))
-	private void addTrace(StringBuilder crashReportBuilder, CallbackInfo ci) {
+	private void bolt$addTrace(StringBuilder crashReportBuilder, CallbackInfo ci) {
 		int trailingNewlineCount = 0;
 		if (crashReportBuilder.charAt(crashReportBuilder.length() - 1) == '\n') {
 			crashReportBuilder.deleteCharAt(crashReportBuilder.length() - 1);

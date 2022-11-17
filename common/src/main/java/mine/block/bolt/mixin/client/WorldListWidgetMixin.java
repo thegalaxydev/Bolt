@@ -5,9 +5,6 @@ import mine.block.bolt.Bolt;
 import mine.block.bolt.brand.BrandingConfig;
 import mine.block.bolt.brand.SimpleVersionInformation;
 import mine.block.bolt.config.BoltConfig;
-import mine.block.bolt.extension.SimpleBrandingVersionExtension;
-import mine.block.bolt.fetchers.BrandingInfoFetcher;
-import net.minecraft.SharedConstants;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.BackupPromptScreen;
@@ -34,7 +31,6 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-import static mine.block.bolt.util.Utils.comparePingData;
 import static mine.block.bolt.util.Utils.compareVersion;
 
 @Mixin(WorldListWidget.class)

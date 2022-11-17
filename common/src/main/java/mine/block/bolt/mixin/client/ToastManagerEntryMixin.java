@@ -8,9 +8,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 // Cross Platform - Disable Toast Fade
 @Mixin(targets = "net.minecraft.client.toast.ToastManager$Entry")
-public class MixinToastManagerEntry {
+public class ToastManagerEntryMixin {
     @Inject(method = "getDisappearProgress", at = @At("HEAD"), cancellable = true)
-    public void getVisibility(CallbackInfoReturnable<Long> cir) {
+    public void bolt$getVisibility(CallbackInfoReturnable<Long> cir) {
         if(BoltConfig.skipToastFadeOut.get()) {
             cir.setReturnValue((long)1.0);
         }

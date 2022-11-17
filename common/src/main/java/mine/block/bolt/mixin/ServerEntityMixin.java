@@ -1,6 +1,6 @@
 package mine.block.bolt.mixin;
 
-import mine.block.bolt.fetchers.EntityDataFetcher;
+import mine.block.bolt.extension.EntityDataExtension;
 import mine.block.bolt.world.FixedPortal;
 import mine.block.bolt.world.FixedPortalManager;
 import net.minecraft.nbt.NbtCompound;
@@ -21,7 +21,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.Optional;
 
 @Mixin(ServerPlayerEntity.class)
-public class MixinServerEntity implements EntityDataFetcher {
+public class ServerEntityMixin implements EntityDataExtension {
     @Unique
     private NbtCompound customNbtData = new NbtCompound();
     @Override
@@ -35,7 +35,7 @@ public class MixinServerEntity implements EntityDataFetcher {
     }
 
     @Inject(method = "getPortalRect", at = @At("RETURN"), cancellable = true)
-    public void getExitPortal(ServerWorld destWorld, BlockPos destPos, boolean destIsNether, WorldBorder worldBorder, CallbackInfoReturnable<Optional<BlockLocating.Rectangle>> cir) {
+    public void bolt$getExitPortal(ServerWorld destWorld, BlockPos destPos, boolean destIsNether, WorldBorder worldBorder, CallbackInfoReturnable<Optional<BlockLocating.Rectangle>> cir) {
         ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
         BlockPos fromPos = player.getBlockPos();
         final RegistryKey<World> fromDim = player.world.getRegistryKey();
