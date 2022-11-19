@@ -8,6 +8,21 @@ The original aim of Bolt is to minimize the amount of QoL and Tweak based mods i
 
 Currently, Bolt merges together 8 different mods; however it will expand to be much larger in the future.
 
+**Mods that Bolt replaces:**
+
+- Better Compatability Checker 
+- Cut Through Grass
+- Skip Splash Fade
+- Skip Title Fade
+- Skip Toast Fade
+- CrashBrander
+- Netherportal Fix
+- Disable Chat Clearing
+- Infinite Chat History
+- Disable Experimental Warning 
+- Item Despawn Blinker
+- Hand Hider
+
 ## Tweaks, Features and Utilities
 
 | __**Config Key**__           | __**Default Value**__ | __**Description**__                                                                                                                                                                                     |
