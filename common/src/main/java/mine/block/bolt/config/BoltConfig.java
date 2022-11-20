@@ -4,11 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import mine.block.bolt.brand.BrandingConfig;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -16,7 +13,7 @@ import java.util.ArrayList;
 
 public class BoltConfig {
     private static final ArrayList<BoltConfigValue<?>> registeredConfigValues = new ArrayList<>();
-    
+
     public static final BoltConfigValue<Boolean> clearChatHistory = createValue("clearChatHistory", Boolean.class, false);
     public static final BoltConfigValue<Boolean> disableChatClearing = createValue("disableChatClearing", Boolean.class, true);
     public static final BoltConfigValue<Boolean> disableResourcePackWarning = createValue("disableResourcePackWarning", Boolean.class, true);
@@ -32,18 +29,18 @@ public class BoltConfig {
     public static final BoltConfigValue<BrandingConfig> modpackBranding = createValue("modpackBranding", BrandingConfig.class, new BrandingConfig());
     public static final BoltConfigValue<Boolean> enableCutThroughGrass = createValue("enableCutThroughGrass", Boolean.class, false);
     public static final BoltConfigValue<Boolean> enableHideHandKeybind = createValue("enableHideHandKeybind", Boolean.class, false);
+    public static Path CONFIG_PATH;
+
     private static <T> BoltConfigValue<T> createValue(String name, Class<T> classOfT, @Nullable T defaultValue) {
         BoltConfigValue<T> value = new BoltConfigValue<T>(name, classOfT, defaultValue);
         registeredConfigValues.add(value);
         return value;
     }
 
-    public static Path CONFIG_PATH;
-
     public static void initialize() throws Exception {
         System.out.println("Bolt is loading config from: " + CONFIG_PATH);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        if(Files.notExists(CONFIG_PATH)) {
+        if (Files.notExists(CONFIG_PATH)) {
             // No config yet. Create default.
             JsonObject obj = new JsonObject();
             for (BoltConfigValue<?> registeredConfigValue : registeredConfigValues) {

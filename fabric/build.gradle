@@ -27,6 +27,10 @@ dependencies {
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
+
+    modImplementation "com.terraformersmc:modmenu:4.1.0", {
+        exclude module: "fabric-api"//intellisense doesn't work with groovy
+    }
 }
 
 processResources {

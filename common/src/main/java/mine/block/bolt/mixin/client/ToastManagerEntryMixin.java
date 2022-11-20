@@ -11,8 +11,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class ToastManagerEntryMixin {
     @Inject(method = "getDisappearProgress", at = @At("HEAD"), cancellable = true)
     public void bolt$getVisibility(CallbackInfoReturnable<Long> cir) {
-        if(BoltConfig.skipToastFadeOut.get()) {
-            cir.setReturnValue((long)1.0);
+        if (BoltConfig.skipToastFadeOut.get()) {
+            cir.setReturnValue((long) 1.0);
         }
     }
 }

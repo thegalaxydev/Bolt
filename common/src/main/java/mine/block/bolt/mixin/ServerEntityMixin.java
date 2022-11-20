@@ -24,6 +24,7 @@ import java.util.Optional;
 public class ServerEntityMixin implements EntityDataExtension {
     @Unique
     private NbtCompound customNbtData = new NbtCompound();
+
     @Override
     public NbtCompound getCustomNbtData() {
         return customNbtData;
@@ -42,7 +43,7 @@ public class ServerEntityMixin implements EntityDataExtension {
         final RegistryKey<World> toDim = destWorld.getRegistryKey();
         final RegistryKey<World> OVERWORLD = World.OVERWORLD;
         final RegistryKey<World> THE_NETHER = World.NETHER;
-        boolean isPlayerCurrentlyInPortal = ((EntityAccessor)player).getInNetherPortal();
+        boolean isPlayerCurrentlyInPortal = ((EntityAccessor) player).getInNetherPortal();
         boolean isTeleportBetweenNetherAndOverworld = (fromDim == OVERWORLD && toDim == THE_NETHER)
                 || (fromDim == THE_NETHER && toDim == OVERWORLD);
         if (isPlayerCurrentlyInPortal && isTeleportBetweenNetherAndOverworld) {

@@ -6,9 +6,9 @@ import org.lwjgl.glfw.GLFW;
 
 public class Keybinds {
     public static KeyBinding hideHandKeybind = new KeyBinding(
-                "key.bolt.hide_hand",
-                InputUtil.Type.KEYSYM,
-                GLFW.GLFW_KEY_F10,
-                "category.keybindings.bolt"
+            "key.bolt.hide_hand",
+            InputUtil.Type.KEYSYM,
+            GLFW.GLFW_KEY_F10,
+            "category.keybindings.bolt"
     );
 }

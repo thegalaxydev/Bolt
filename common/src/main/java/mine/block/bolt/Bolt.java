@@ -1,14 +1,9 @@
 package mine.block.bolt;
 
+import dev.architectury.injectables.targets.ArchitecturyTarget;
 import mine.block.bolt.config.BoltConfig;
 import mine.block.bolt.util.PlatformSpecifics;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.GameMenuScreen;
-import net.minecraft.client.gui.screen.world.WorldListWidget;
 import net.minecraft.util.Identifier;
-
-import java.io.IOException;
-import java.nio.file.Path;
 
 public class Bolt {
     public static final String MOD_ID = "bolt";
@@ -18,6 +13,9 @@ public class Bolt {
         BoltConfig.CONFIG_PATH = PlatformSpecifics.getConfigDir().resolve("bolt.config.json");
         try {
             BoltConfig.initialize();
+            if (BoltConfig.modpackBranding.get().enabled && !ArchitecturyTarget.getCurrentTarget().equals("forge")) {
+                BoltConfig.modpackBranding.get().updateProvidedByModpack();
+            }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

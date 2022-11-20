@@ -21,14 +21,14 @@ public class BoltConfigValue<T> {
 
     public void loadValues(JsonObject wholeConfigFile) throws Exception {
         boolean required = defaultValue.isEmpty();
-        if(required && !wholeConfigFile.has(name)) {
+        if (required && !wholeConfigFile.has(name)) {
             throw new Exception("The following value is required in Bolt's configuration: " + name);
         }
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         JsonElement element = wholeConfigFile.get(name);
 
-        if(element == null) {
+        if (element == null) {
             throw new Exception("Unable to find the following value in Bolt's configuration or the config was incorrect! " + name);
         }
 
@@ -38,7 +38,7 @@ public class BoltConfigValue<T> {
 
     public JsonElement serialize() {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        if(this.currentValue == null) return JsonNull.INSTANCE;
+        if (this.currentValue == null) return JsonNull.INSTANCE;
         return gson.toJsonTree(this.currentValue);
     }
 

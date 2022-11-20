@@ -1,15 +1,12 @@
 package mine.block.bolt.client;
 
 import mine.block.bolt.config.BoltConfig;
-import mine.block.bolt.config.BoltConfigValue;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.ItemEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.ItemEntity;
-
-import javax.naming.Context;
 
 public class ItemBlinkRenderer extends ItemEntityRenderer {
     public ItemBlinkRenderer(EntityRendererFactory.Context context) {

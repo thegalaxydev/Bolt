@@ -2,8 +2,8 @@ package mine.block.bolt.mixin;
 
 import com.google.gson.*;
 import mine.block.bolt.brand.BrandingConfig;
-import mine.block.bolt.extension.BrandingInfoExtension;
 import mine.block.bolt.config.BoltConfig;
+import mine.block.bolt.extension.BrandingInfoExtension;
 import net.minecraft.server.ServerMetadata;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -16,20 +16,23 @@ import java.lang.reflect.Type;
 @Mixin(ServerMetadata.class)
 public class ServerMetadataMixin implements BrandingInfoExtension {
 
-    @Unique public BrandingConfig data;
-
-    @Override
-    public void setBrandData(BrandingConfig serverData) {
-        this.data = serverData;
-    }
+    @Unique
+    public BrandingConfig data;
 
     @Override
     public BrandingConfig getBrandData() {
         return this.data;
     }
 
+    @Override
+    public void setBrandData(BrandingConfig serverData) {
+        this.data = serverData;
+    }
+
     @Mixin(ServerMetadata.Deserializer.class)
     public static class ServerStatusSerializerMixin {
+
+        private static final Gson gson = new Gson();
 
         @Inject(method = "serialize(Lnet/minecraft/server/ServerMetadata;Ljava/lang/reflect/Type;Lcom/google/gson/JsonSerializationContext;)Lcom/google/gson/JsonElement;", at = @At("RETURN"))
         private void serialize(ServerMetadata serverMetadata, Type type, JsonSerializationContext jsonSerializationContext, CallbackInfoReturnable<JsonElement> cir) {
@@ -38,8 +41,6 @@ public class ServerMetadataMixin implements BrandingInfoExtension {
                 jsonObject.add("modpackData", gson.toJsonTree(BoltConfig.modpackBranding.get()));
             }
         }
-
-        private static final Gson gson = new Gson();
 
         @Inject(method = "deserialize(Lcom/google/gson/JsonElement;Ljava/lang/reflect/Type;Lcom/google/gson/JsonDeserializationContext;)Lnet/minecraft/server/ServerMetadata;", at = @At("RETURN"))
         private void deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext, CallbackInfoReturnable<ServerMetadata> cir) {

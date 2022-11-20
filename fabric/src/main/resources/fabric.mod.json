@@ -21,6 +21,9 @@
     ],
     "client": [
       "mine.block.bolt.fabric.BoltFabricClient"
+    ],
+    "modmenu": [
+      "mine.block.bolt.fabric.compat.ModMenuCompat"
     ]
   },
   "mixins": [
