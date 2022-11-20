@@ -1,14 +1,24 @@
 package mine.block.bolt.brand;
 
-public class BrandingConfig {
+import blue.endless.jankson.Comment;
+import com.mojang.serialization.OptionalDynamic;
 
+public class BrandingConfig {
+    @Comment("Whether to enable modpack branding.")
     public boolean enabled = false;
+    @Comment("Whether to show the modpack name and version on the main menu (Fabric only.) \nPlease disable if FancyMenu is installed.")
     public boolean enableTitlescreenBranding = true;
+    @Comment("The name of the modpack.")
     public String modpackName = "Modpack Name";
+    @Comment("Infomation on the current version of the modpack.")
     public VersionInformation modpackVersion = new VersionInformation();
+    @Comment("The ID of the modpack (curseforge/modrinth slug)")
     public String modpackID = "";
-    public String[] modpackAuthors = new String[]{"Author 1", "Author 2"};
+    @Comment("The authors of the modpack.")
+    public String[] modpackAuthors = new String[] { "Author 1", "Author 2" };
+    @Comment("Mods that are provided by the modpack - used for badges on fabric and marks any mods not in this list as non-included in crash reports.\nUse %CF_SEARCH% inside the array to automatically add values from the curseforge modpack instance json.")
     public String[] providedByModpack = new String[0];
+    @Comment("URLs that will be put in the crash report to help users find support.")
     public ContactInformation URLS = new ContactInformation();
 
     public void updateProvidedByModpack() {
@@ -20,8 +30,11 @@ public class BrandingConfig {
     }
 
     public static class VersionInformation {
-        public String ID = "69420";
-        public String semName = "1.0.0";
+        @Comment("An human-readable ID of the current version.")
+        public String ID = "v69-my-modpack-fabric";
+        @Comment("The current semantic version of the modpack.")
+        public String semName = "69.0.0";
+        @Comment("The release type of the current version.\nBeta, Release or Alpha")
         public String releaseType = "Beta";
 
         @Override

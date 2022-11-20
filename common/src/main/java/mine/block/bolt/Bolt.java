@@ -10,7 +10,8 @@ public class Bolt {
 
     public static void init() {
         //GameMenuScreen
-        BoltConfig.CONFIG_PATH = PlatformSpecifics.getConfigDir().resolve("bolt.config.json");
+        BoltConfig.OLD_CONFIG_PATH = PlatformSpecifics.getConfigDir().resolve("bolt.config.json");
+        BoltConfig.CONFIG_PATH = PlatformSpecifics.getConfigDir().resolve("bolt.config.json5");
         try {
             BoltConfig.initialize();
             if (BoltConfig.modpackBranding.get().enabled && !ArchitecturyTarget.getCurrentTarget().equals("forge")) {

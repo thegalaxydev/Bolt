@@ -5,7 +5,8 @@
   "name": "Bolt",
   "description": "A utility mod for modpacks that adds tweaks and useful features for modpack developers.",
   "authors": [
-    "mineblock11"
+    "mineblock11",
+    "Jab125"
   ],
   "contact": {
     "website": "https://mineblock11.dev/",
@@ -13,7 +14,7 @@
     "issues": "https://github.com/11mods/bolt/issues"
   },
   "license": "MIT",
-  "icon": "icon.png",
+  "icon": "assets/bolt/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
