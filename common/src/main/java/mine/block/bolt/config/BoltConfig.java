@@ -53,4 +53,16 @@ public class BoltConfig {
 
         ConfigLoader.loadConfig();
     }
+
+    // README.md tooling
+    public static void main(String[] args) throws Exception {
+        CONFIG_PATH = Path.of("./bolt.config.json5");
+        OLD_CONFIG_PATH = Path.of("./bolt.config.json");
+        initialize();
+        System.out.println("| __**Config Key**__| __**Default Value**__ | __**Description**__|\n" +
+                "|-------------|----------------|----------------|");
+        for (BoltConfigValue<?> registeredConfigValue : registeredConfigValues) {
+            System.out.println("|%s|%s|%s|".formatted(registeredConfigValue.getName(), registeredConfigValue.get(), registeredConfigValue.getDescription()));
+        }
+    }
 }
