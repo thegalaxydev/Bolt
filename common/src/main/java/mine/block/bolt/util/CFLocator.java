@@ -24,9 +24,10 @@ public class CFLocator {
     private static final String ID = "id";
     private static final String FABRIC_MOD_JSON = "fabric.mod.json";
     private static final String MODS = "mods";
+    private static final String MODS_PREFIX = "mods/";
     private static final String MODPACK_VERSION = "modpackVersion";
-    private final Gson gson = new Gson();
     private static final String INSTALLED_ADDONS = "installedAddons";
+    private final Gson gson = new Gson();
     public String[] getCFMods() throws IOException {
         return getCFMods(true);
     }
@@ -105,10 +106,10 @@ public class CFLocator {
                         JsonObject installedFile = jsonElement.getAsJsonObject().get(INSTALLED_FILE).getAsJsonObject();
                         if (installedFile.has(FILE_NAME) && installedFile.get(FILE_NAME).isJsonPrimitive()) {
                             String file = installedFile.get(FILE_NAME).getAsString();
-                            if (Paths.get("mods/" + file).toFile().exists())
+                            if (Paths.get(MODS_PREFIX + file).toFile().exists())
                             try {
-                                ZipFile zipFile = new ZipFile("mods/" +file);
-                                ZipEntry entry = zipFile.getEntry(FABRIC_MOD_JSON); // we don't need MForge as forge doesn't have this
+                                ZipFile zipFile = new ZipFile(MODS_PREFIX + file);
+                                ZipEntry entry = zipFile.getEntry(FABRIC_MOD_JSON); // we don't need forge as forge doesn't have this
                                 if (entry != null) {
                                     BufferedReader r = new BufferedReader(new InputStreamReader(zipFile.getInputStream(entry)));
                                     StringBuilder stringBuilder2 = new StringBuilder();
@@ -119,14 +120,11 @@ public class CFLocator {
                                         if (e.getAsJsonObject().has(ID) && e.getAsJsonObject().get(ID).isJsonPrimitive()) {
                                             String id = e.getAsJsonObject().get(ID).getAsString();
                                             mods.add(id);
-                                            System.out.println("found " + id + "!");
                                         }
                                     }
                                 }
                             } catch (IOException e) {
                                 // mod not found
-                                System.err.println("mod not found!");
-                                e.printStackTrace();
                             }
                         }
                     }

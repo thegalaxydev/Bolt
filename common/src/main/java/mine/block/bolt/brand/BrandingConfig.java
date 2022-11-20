@@ -16,7 +16,7 @@ public class BrandingConfig {
                 e.printStackTrace();
             }
         });
-        private BiConsumer<Supplier<String[]>, Consumer<String[]>> consumer;
+        private final BiConsumer<Supplier<String[]>, Consumer<String[]>> consumer;
         ModPackProvider(BiConsumer<Supplier<String[]>, Consumer<String[]>> consumer) {
             this.consumer = consumer;
         }

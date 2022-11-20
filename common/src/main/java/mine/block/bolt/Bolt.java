@@ -1,5 +1,6 @@
 package mine.block.bolt;
 
+import dev.architectury.injectables.targets.ArchitecturyTarget;
 import mine.block.bolt.config.BoltConfig;
 import mine.block.bolt.util.PlatformSpecifics;
 import net.minecraft.client.MinecraftClient;
@@ -18,7 +19,9 @@ public class Bolt {
         BoltConfig.CONFIG_PATH = PlatformSpecifics.getConfigDir().resolve("bolt.config.json");
         try {
             BoltConfig.initialize();
-            BoltConfig.modpackBranding.get().updateProvidedByModpack();
+            if (BoltConfig.modpackBranding.get().enabled && !ArchitecturyTarget.getCurrentTarget().equals("forge")) {
+                BoltConfig.modpackBranding.get().updateProvidedByModpack();
+            }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
