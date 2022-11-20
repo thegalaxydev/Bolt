@@ -18,6 +18,7 @@ public class Bolt {
         BoltConfig.CONFIG_PATH = PlatformSpecifics.getConfigDir().resolve("bolt.config.json");
         try {
             BoltConfig.initialize();
+            BoltConfig.modpackBranding.get().updateProvidedByModpack();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
