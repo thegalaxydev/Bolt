@@ -16,30 +16,31 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(SplashOverlay.class)
 public class SplashOverlayMixin {
     @Mutable
-    @Shadow @Final
+    @Shadow
+    @Final
     private MinecraftClient client;
     @Shadow
     private long reloadCompleteTime;
 
+    @ModifyVariable(method = "withAlpha", at = @At("HEAD"), ordinal = 1, argsOnly = true)
+    private static int bolt$modifyWithAlpha(int value) {
+        if (BoltConfig.skipLoadingTransition.get()) {
+            return 255;
+        } else return value;
+    }
+
     @Inject(method = "render", at = @At("HEAD"))
     public void bolt$injectRenderHead(CallbackInfo ci) {
-        if(BoltConfig.skipLoadingTransition.get()) {
+        if (BoltConfig.skipLoadingTransition.get()) {
             if (this.reloadCompleteTime > 1) {
                 this.client.setOverlay(null);
             }
         }
     }
 
-    @ModifyVariable(method = "withAlpha", at = @At("HEAD"), ordinal = 1, argsOnly = true)
-    private static int bolt$modifyWithAlpha(int value) {
-        if(BoltConfig.skipLoadingTransition.get()) {
-            return 255;
-        } else return value;
-    }
-
     @ModifyVariable(method = "render", at = @At("STORE"), ordinal = 3)
     private float bolt$skipLoadingTransition(float value) {
-        if(BoltConfig.skipLoadingTransition.get()) {
+        if (BoltConfig.skipLoadingTransition.get()) {
             return 1.0f;
         } else return value;
     }

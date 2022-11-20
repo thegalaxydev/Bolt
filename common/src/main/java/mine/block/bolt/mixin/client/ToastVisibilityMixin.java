@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class ToastVisibilityMixin {
     @Inject(method = "playSound", at = @At("HEAD"), cancellable = true)
     public void bolt$playSound(SoundManager soundManager, CallbackInfo ci) {
-        if(BoltConfig.skipToastFadeOut.get()) {
+        if (BoltConfig.skipToastFadeOut.get()) {
             ci.cancel();
         }
     }

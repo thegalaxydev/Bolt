@@ -10,12 +10,12 @@ public class ServerInfoMixin implements BrandingInfoExtension {
     private BrandingConfig serverData = null;
 
     @Override
-    public void setBrandData(BrandingConfig serverData) {
-        this.serverData = serverData;
+    public BrandingConfig getBrandData() {
+        return this.serverData;
     }
 
     @Override
-    public BrandingConfig getBrandData() {
-        return this.serverData;
+    public void setBrandData(BrandingConfig serverData) {
+        this.serverData = serverData;
     }
 }

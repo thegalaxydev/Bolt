@@ -4,7 +4,6 @@ import mine.block.bolt.config.BoltConfig;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
-
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -17,8 +16,8 @@ public class LivingEntityMixin {
 
     @Inject(method = "setMovementSpeed", at = @At(value = "HEAD"), cancellable = true)
     public void bolt$setMovementSpeed(float pSpeed, CallbackInfo ci) {
-        if(!BoltConfig.enableQuickCrouch.get()) return;
-        LivingEntity livingEntity = (LivingEntity)(Object)this;
+        if (!BoltConfig.enableQuickCrouch.get()) return;
+        LivingEntity livingEntity = (LivingEntity) (Object) this;
         if (livingEntity instanceof PlayerEntity playerEntity) {
             if (playerEntity.isSneaking()) {
                 this.movementSpeed = pSpeed * BoltConfig.quickCrouchSpeed.get();

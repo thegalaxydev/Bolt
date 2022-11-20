@@ -37,15 +37,22 @@ import static mine.block.bolt.util.Utils.compareVersion;
 public class WorldListWidgetMixin {
     @Mixin(WorldListWidget.WorldEntry.class) // so the mixin export doesn't freak out
     public abstract static class WorldEntryMixin extends WorldListWidget.Entry {
-        @Shadow @Final private MinecraftClient client;
+        @Shadow
+        @Final
+        private MinecraftClient client;
 
-        @Shadow @Final private SelectWorldScreen screen;
+        @Shadow
+        @Final
+        private SelectWorldScreen screen;
 
-        @Shadow @Final private LevelSummary level;
+        @Shadow
+        @Final
+        private LevelSummary level;
         @Unique
         private boolean isCompatible;
 
-        @Shadow protected abstract void start();
+        @Shadow
+        protected abstract void start();
 
         @Inject(method = "play", at = @At("HEAD"), cancellable = true)
         private void bolt$play(CallbackInfo ci) {
@@ -64,10 +71,9 @@ public class WorldListWidgetMixin {
             this.client.setScreen(new BackupPromptScreen(this.screen, (backup, eraseCache) -> {
                 if (backup) {
                     String string = this.level.getName();
-                    try (LevelStorage.Session session = this.client.getLevelStorage().createSession(string)){
+                    try (LevelStorage.Session session = this.client.getLevelStorage().createSession(string)) {
                         EditWorldScreen.backupLevel(session);
-                    }
-                    catch (IOException iOException) {
+                    } catch (IOException iOException) {
                         SystemToast.addWorldAccessFailureToast(this.client, string);
                         //LOGGER.error("Failed to backup level {}", (Object)string, (Object)iOException);
                     }
@@ -78,7 +84,7 @@ public class WorldListWidgetMixin {
         }
 
 
-            @Inject(method = "render", at = @At("RETURN"))
+        @Inject(method = "render", at = @At("RETURN"))
         private void bolt$render(MatrixStack matrices, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta, CallbackInfo ci) {
 //            String text = "Modpack Version: 1.0.0";
 //            this.client.textRenderer.draw(matrices, text, x + entryWidth - client.textRenderer.getWidth(text)/*, (float)(x + 32 + 3)*/, (float)(y + 1/*this.client.textRenderer.fontHeight + this.client.textRenderer.fontHeight + 3*/), 0x808080);

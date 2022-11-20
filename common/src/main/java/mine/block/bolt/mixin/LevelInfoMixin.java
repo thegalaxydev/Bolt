@@ -1,7 +1,6 @@
 package mine.block.bolt.mixin;
 
 import com.mojang.serialization.Dynamic;
-import mine.block.bolt.brand.BrandingConfig;
 import mine.block.bolt.brand.SimpleVersionInformation;
 import mine.block.bolt.extension.SimpleBrandingVersionExtension;
 import net.minecraft.resource.DataPackSettings;
@@ -19,7 +18,21 @@ import static mine.block.bolt.brand.SimpleVersionInformation.DEFAULT;
 
 @Mixin(LevelInfo.class)
 public class LevelInfoMixin implements SimpleBrandingVersionExtension {
-    private @Final @Mutable SimpleVersionInformation version;
+    private @Final
+    @Mutable SimpleVersionInformation version;
+
+    @Inject(method = "fromDynamic", at = @At("RETURN"))
+    private static void bolt$fromDynamic(Dynamic<?> dynamic, DataPackSettings dataPackSettings, CallbackInfoReturnable<LevelInfo> cir) {
+        SimpleVersionInformation information = new SimpleVersionInformation(
+                dynamic.get("modpackVersion").get("modpackName").asString(DEFAULT.modpackName()),
+                dynamic.get("modpackVersion").get("modpackID").asString(DEFAULT.modpackID()),
+                dynamic.get("modpackVersion").get("ID").asString(DEFAULT.ID()),
+                dynamic.get("modpackVersion").get("semName").asString(DEFAULT.semName()),
+                dynamic.get("modpackVersion").get("releaseType").asString(DEFAULT.releaseType())
+        );
+        cir.getReturnValue().setVersion(information);
+    }
+
     @Override
     public SimpleVersionInformation getVersion() {
         return version;
@@ -33,18 +46,6 @@ public class LevelInfoMixin implements SimpleBrandingVersionExtension {
     @Inject(method = "withGameMode", at = @At("RETURN"))
     public void bolt$withGameMode(GameMode mode, CallbackInfoReturnable<LevelInfo> cir) {
         cir.getReturnValue().setVersion(version);
-    }
-
-    @Inject(method = "fromDynamic", at = @At("RETURN"))
-    private static void bolt$fromDynamic(Dynamic<?> dynamic, DataPackSettings dataPackSettings, CallbackInfoReturnable<LevelInfo> cir) {
-        SimpleVersionInformation information = new SimpleVersionInformation(
-                dynamic.get("modpackVersion").get("modpackName").asString(DEFAULT.modpackName()),
-                dynamic.get("modpackVersion").get("modpackID").asString(DEFAULT.modpackID()),
-                dynamic.get("modpackVersion").get("ID").asString(DEFAULT.ID()),
-                dynamic.get("modpackVersion").get("semName").asString(DEFAULT.semName()),
-                dynamic.get("modpackVersion").get("releaseType").asString(DEFAULT.releaseType())
-        );
-        cir.getReturnValue().setVersion(information);
     }
 
     @Inject(method = "withDifficulty", at = @At("RETURN"))

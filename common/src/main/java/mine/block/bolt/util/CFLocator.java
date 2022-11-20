@@ -28,9 +28,16 @@ public class CFLocator {
     private static final String MODPACK_VERSION = "modpackVersion";
     private static final String INSTALLED_ADDONS = "installedAddons";
     private final Gson gson = new Gson();
+
+    public static String getHash() {
+        BrandingConfig config = BoltConfig.modpackBranding.get();
+        return Hashing.sha256().hashString(config.modpackID + config.modpackName + config.modpackVersion.semName + config.modpackVersion.releaseType + config.modpackVersion.ID, StandardCharsets.UTF_8).toString();
+    }
+
     public String[] getCFMods() throws IOException {
         return getCFMods(true);
     }
+
     public String[] getCFMods(boolean d) throws IOException {
         File bolt_cache = PlatformSpecifics.getConfigDir().resolve(BOLT_CONFIG_CACHE_JSON).toFile();
         if (bolt_cache.exists() && d) {
@@ -83,11 +90,6 @@ public class CFLocator {
         return Hashing.sha256().hashString(config.modpackID + config.modpackName + config.modpackVersion.semName + config.modpackVersion.releaseType + config.modpackVersion.ID, StandardCharsets.UTF_8).toString().equals(ver);
     }
 
-    public static String getHash() {
-        BrandingConfig config = BoltConfig.modpackBranding.get();
-        return Hashing.sha256().hashString(config.modpackID + config.modpackName + config.modpackVersion.semName + config.modpackVersion.releaseType + config.modpackVersion.ID, StandardCharsets.UTF_8).toString();
-    }
-
     private String[] locateCFMods() throws IOException {
         ArrayList<String> mods = new ArrayList<>();
         Path cfInstance = Paths.get(MINECRAFT_INSTANCE_JSON);
@@ -107,25 +109,25 @@ public class CFLocator {
                         if (installedFile.has(FILE_NAME) && installedFile.get(FILE_NAME).isJsonPrimitive()) {
                             String file = installedFile.get(FILE_NAME).getAsString();
                             if (Paths.get(MODS_PREFIX + file).toFile().exists())
-                            try {
-                                ZipFile zipFile = new ZipFile(MODS_PREFIX + file);
-                                ZipEntry entry = zipFile.getEntry(FABRIC_MOD_JSON); // we don't need forge as forge doesn't have this
-                                if (entry != null) {
-                                    BufferedReader r = new BufferedReader(new InputStreamReader(zipFile.getInputStream(entry)));
-                                    StringBuilder stringBuilder2 = new StringBuilder();
-                                    r.lines().forEach((stringBuilder2::append));
-                                    String string2 = stringBuilder2.toString();
-                                    JsonElement e = gson.fromJson(string2, JsonElement.class);
-                                    if (e.isJsonObject()) {
-                                        if (e.getAsJsonObject().has(ID) && e.getAsJsonObject().get(ID).isJsonPrimitive()) {
-                                            String id = e.getAsJsonObject().get(ID).getAsString();
-                                            mods.add(id);
+                                try {
+                                    ZipFile zipFile = new ZipFile(MODS_PREFIX + file);
+                                    ZipEntry entry = zipFile.getEntry(FABRIC_MOD_JSON); // we don't need forge as forge doesn't have this
+                                    if (entry != null) {
+                                        BufferedReader r = new BufferedReader(new InputStreamReader(zipFile.getInputStream(entry)));
+                                        StringBuilder stringBuilder2 = new StringBuilder();
+                                        r.lines().forEach((stringBuilder2::append));
+                                        String string2 = stringBuilder2.toString();
+                                        JsonElement e = gson.fromJson(string2, JsonElement.class);
+                                        if (e.isJsonObject()) {
+                                            if (e.getAsJsonObject().has(ID) && e.getAsJsonObject().get(ID).isJsonPrimitive()) {
+                                                String id = e.getAsJsonObject().get(ID).getAsString();
+                                                mods.add(id);
+                                            }
                                         }
                                     }
+                                } catch (IOException e) {
+                                    // mod not found
                                 }
-                            } catch (IOException e) {
-                                // mod not found
-                            }
                         }
                     }
                 });
