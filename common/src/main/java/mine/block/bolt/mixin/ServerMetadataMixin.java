@@ -39,6 +39,10 @@ public class ServerMetadataMixin implements BrandingInfoExtension {
             JsonObject jsonObject = cir.getReturnValue().getAsJsonObject();
             if (BoltConfig.modpackBranding.get().enabled) {
                 jsonObject.add("modpackData", gson.toJsonTree(BoltConfig.modpackBranding.get()));
+            } else {
+                JsonObject d = new JsonObject();
+                d.addProperty("notEnabled", "y");
+                jsonObject.add("modpackData", d);
             }
         }
 
@@ -47,6 +51,12 @@ public class ServerMetadataMixin implements BrandingInfoExtension {
             JsonObject jsonObject = jsonElement.getAsJsonObject();
             if (jsonObject.has("modpackData")) {
                 BrandingInfoExtension returnValue = cir.getReturnValue();
+                if (jsonObject.get("modpackData").getAsJsonObject().has("notEnabled")) {
+                    BrandingConfig d = new BrandingConfig();
+                    d.enabled = false;
+                    returnValue.setBrandData(d);
+                    return;
+                }
                 BrandingConfig newValue = gson.fromJson(gson.toJson(jsonObject.get("modpackData")), BrandingConfig.class);
                 returnValue.setBrandData(newValue);
             }

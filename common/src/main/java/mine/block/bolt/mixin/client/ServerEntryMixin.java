@@ -5,6 +5,7 @@ import mine.block.bolt.Bolt;
 import mine.block.bolt.brand.BrandingConfig;
 import mine.block.bolt.config.BoltConfig;
 import mine.block.bolt.util.Utils;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerServerListWidget;
@@ -16,6 +17,7 @@ import net.minecraft.util.Formatting;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -25,6 +27,8 @@ import java.util.stream.Collectors;
 
 @Mixin(value = MultiplayerServerListWidget.ServerEntry.class)
 public class ServerEntryMixin {
+    @Unique
+    private boolean firstTime = true;
     @Shadow
     @Final
     private ServerInfo server;
@@ -35,6 +39,7 @@ public class ServerEntryMixin {
 
     @Inject(method = "render(Lnet/minecraft/client/util/math/MatrixStack;IIIIIIIZF)V", at = @At(value = "HEAD"))
     private void bolt$render(MatrixStack matrices, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta, CallbackInfo ci) {
+        if (!BoltConfig.modpackBranding.get().enabled) return;
         int m = mouseX - x;
         int n = mouseY - y;
 
@@ -45,13 +50,16 @@ public class ServerEntryMixin {
         int idy = 0;
         String tooltip;
 
-        if (this.server.ping < 0) return;
+        if (this.server.ping < 0 || firstTime) {firstTime=false;return;}
         if (pingData == null) {
             idx = 16;
             idy = 32;
             tooltip = Text.translatable("bolt.gui.tooltip.boltless_server").getString();
+        } else if (!pingData.enabled) {
+            idy = 32;
+            tooltip = Text.translatable("bolt.gui.tooltip.bolt_disabled_server").getString();
         } else if (Utils.comparePingData(pingData)) {
-            idx = 0;
+            idx = 16;
             tooltip = Text.translatable("bolt.gui.tooltip.compatible_server", Formatting.GRAY + (pingData.modpackName + " " + pingData.modpackVersion.semName) + Formatting.RESET, Formatting.GRAY + (localData.modpackName + " " + localData.modpackVersion.semName) + Formatting.RESET).getString();
         } else {
             idx = 16;

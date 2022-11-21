@@ -35,6 +35,7 @@ public class LevelPropertiesMixin implements SimpleBrandingVersionExtension {
 
     @Inject(method = "readProperties", at = @At("RETURN"))
     private static void bolt$readProperties(Dynamic<NbtElement> dynamic, DataFixer dataFixer, int dataVersion, @Nullable NbtCompound playerData, LevelInfo levelInfo, SaveVersionInfo saveVersionInfo, GeneratorOptions generatorOptions, Lifecycle lifecycle, CallbackInfoReturnable<LevelProperties> cir) {
+        if (!BoltConfig.modpackBranding.get().enabled) return;
         LevelProperties properties = cir.getReturnValue();
         SimpleVersionInformation information = new SimpleVersionInformation(
                 dynamic.get("modpackVersion").get("modpackName").asString(DEFAULT.modpackName()),
@@ -48,6 +49,7 @@ public class LevelPropertiesMixin implements SimpleBrandingVersionExtension {
 
     @Inject(method = "updateProperties", at = @At("RETURN"))
     private void bolt$updateProperties(DynamicRegistryManager registryManager, NbtCompound levelNbt, NbtCompound playerNbt, CallbackInfo ci) {
+        if (!BoltConfig.modpackBranding.get().enabled) return;
         BrandingConfig brandingInfo = BoltConfig.modpackBranding.get();
         BrandingConfig.VersionInformation versionInformation = brandingInfo.modpackVersion;
         NbtCompound modpackVersion = new NbtCompound();
