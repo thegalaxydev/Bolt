@@ -9,8 +9,7 @@
     "IntegratedServerLoaderMixin",
     "client.MinecraftClientMixin",
     "client.ServerListPingerMixin",
-    "client.TitleScreenMixin",
-    "client.FabricModMixin"
+    "client.TitleScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1
