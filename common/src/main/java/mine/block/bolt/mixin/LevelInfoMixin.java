@@ -2,6 +2,7 @@ package mine.block.bolt.mixin;
 
 import com.mojang.serialization.Dynamic;
 import mine.block.bolt.brand.SimpleVersionInformation;
+import mine.block.bolt.config.BoltConfig;
 import mine.block.bolt.extension.SimpleBrandingVersionExtension;
 import net.minecraft.resource.DataPackSettings;
 import net.minecraft.world.Difficulty;
@@ -23,6 +24,7 @@ public class LevelInfoMixin implements SimpleBrandingVersionExtension {
 
     @Inject(method = "fromDynamic", at = @At("RETURN"))
     private static void bolt$fromDynamic(Dynamic<?> dynamic, DataPackSettings dataPackSettings, CallbackInfoReturnable<LevelInfo> cir) {
+        if (!BoltConfig.modpackBranding.get().enabled) return;
         SimpleVersionInformation information = new SimpleVersionInformation(
                 dynamic.get("modpackVersion").get("modpackName").asString(DEFAULT.modpackName()),
                 dynamic.get("modpackVersion").get("modpackID").asString(DEFAULT.modpackID()),

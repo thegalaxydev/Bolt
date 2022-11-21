@@ -56,11 +56,15 @@ public class WorldListWidgetMixin {
 
         @Inject(method = "play", at = @At("HEAD"), cancellable = true)
         private void bolt$play(CallbackInfo ci) {
+            if (!BoltConfig.modpackBranding.get().enabled) return;
             if (this.level.isUnavailable() || this.isCompatible) {
                 return;
             }
 
             SimpleVersionInformation versionInformation = level.getLevelInfo().getVersion();
+            if (versionInformation.releaseType().equals("DISABLED")) {
+                versionInformation = new SimpleVersionInformation("Minecraft", "minecraft", "mc-" + level.getVersionInfo().getVersion().getId(), level.getVersionInfo().getVersionName(), "DISABLED");
+            }
             //BrandingConfig pingData = data.getBrandData();
             BrandingConfig localData = BoltConfig.modpackBranding.get();
 
@@ -86,6 +90,7 @@ public class WorldListWidgetMixin {
 
         @Inject(method = "render", at = @At("RETURN"))
         private void bolt$render(MatrixStack matrices, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta, CallbackInfo ci) {
+            if (!BoltConfig.modpackBranding.get().enabled) return;
 //            String text = "Modpack Version: 1.0.0";
 //            this.client.textRenderer.draw(matrices, text, x + entryWidth - client.textRenderer.getWidth(text)/*, (float)(x + 32 + 3)*/, (float)(y + 1/*this.client.textRenderer.fontHeight + this.client.textRenderer.fontHeight + 3*/), 0x808080);
             int m = mouseX - x;
@@ -106,18 +111,20 @@ public class WorldListWidgetMixin {
             //BrandingConfig pingData = data.getBrandData();
             BrandingConfig localData = BoltConfig.modpackBranding.get();
             int idx;
+            int idy = 0;
             String tooltip;
 
-            if (versionInformation == null) {
-                return;
-            }
-
-            if (compareVersion(versionInformation)) {
+            if (versionInformation == null || versionInformation.releaseType().equals("DISABLED")) {
+                this.isCompatible = false;
+                idx = 32;
+                idy = 16;
+                tooltip = Text.translatable("bolt.gui.tooltip.non_bolt_world").getString();
+            } else if (compareVersion(versionInformation)) {
                 idx = 0;
                 this.isCompatible = true;
                 //tooltip = Text.translatable("bolt.gui.tooltip.compatible_server", Formatting.GRAY + (pingData.modpackName + " " + pingData.modpackVersion.semName) + Formatting.RESET, Formatting.GRAY + (localData.modpackName + " " + localData.modpackVersion.semName) + Formatting.RESET).getString();
                 tooltip = Text.translatable("bolt.gui.tooltip.compatible_world", Formatting.GRAY + (versionInformation.modpackName() + " " + versionInformation.semName()) + Formatting.RESET, Formatting.GRAY + (localData.modpackName + " " + localData.modpackVersion.semName) + Formatting.RESET).getString();
-            } else {
+            } else  {
                 idx = 16;
                 this.isCompatible = false;
                 //tooltip = Text.translatable("bolt.gui.tooltip.incompatible_server", (pingData.modpackName + " " + pingData.modpackVersion.semName), (localData.modpackName + " " + localData.modpackVersion.semName)).getString();
@@ -130,7 +137,7 @@ public class WorldListWidgetMixin {
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
             RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
             RenderSystem.setShaderTexture(0, Bolt.id("textures/gui/bolt-icons.png"));
-            DrawableHelper.drawTexture(matrices, x + entryWidth - 18, y + 10, 16, 16, idx, 0, 16, 16, 64, 64);
+            DrawableHelper.drawTexture(matrices, x + entryWidth - 18, y + 10, 16, 16, idx, idy, 16, 16, 64, 64);
 
             int relativeMouseX = mouseX - x;
             int relativeMouseY = mouseY - y;
