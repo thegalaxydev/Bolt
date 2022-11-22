@@ -31,9 +31,11 @@ public class BrandingConfig {
 
     public static class VersionInformation {
         @Comment("An human-readable ID of the current version.")
-        public String ID = "v69-my-modpack-fabric";
+        public String ID = "v69.1-my-modpack-fabric";
+        @Comment("How the version is displayed to the user.")
+        public String displayName = "v69.1";
         @Comment("The current semantic version of the modpack.")
-        public String semName = "69.0.0";
+        public String semName = "69.0.1";
         @Comment("The release type of the current version.\nBeta, Release or Alpha")
         public String releaseType = "Beta";
 

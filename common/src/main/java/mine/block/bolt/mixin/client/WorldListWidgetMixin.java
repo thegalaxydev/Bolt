@@ -63,7 +63,7 @@ public class WorldListWidgetMixin {
 
             SimpleVersionInformation versionInformation = level.getLevelInfo().getVersion();
             if (versionInformation.releaseType().equals("DISABLED")) {
-                versionInformation = new SimpleVersionInformation("Minecraft", "minecraft", "mc-" + level.getVersionInfo().getVersion().getId(), level.getVersionInfo().getVersionName(), "DISABLED");
+                versionInformation = new SimpleVersionInformation("Minecraft", "minecraft", "mc-" + level.getVersionInfo().getVersion().getId(), level.getVersionInfo().getVersionName(), level.getVersionInfo().getVersionName(), "DISABLED");
             }
             //BrandingConfig pingData = data.getBrandData();
             BrandingConfig localData = BoltConfig.modpackBranding.get();
@@ -123,12 +123,12 @@ public class WorldListWidgetMixin {
                 idx = 0;
                 this.isCompatible = true;
                 //tooltip = Text.translatable("bolt.gui.tooltip.compatible_server", Formatting.GRAY + (pingData.modpackName + " " + pingData.modpackVersion.semName) + Formatting.RESET, Formatting.GRAY + (localData.modpackName + " " + localData.modpackVersion.semName) + Formatting.RESET).getString();
-                tooltip = Text.translatable("bolt.gui.tooltip.compatible_world", Formatting.GRAY + (versionInformation.modpackName() + " " + versionInformation.semName()) + Formatting.RESET, Formatting.GRAY + (localData.modpackName + " " + localData.modpackVersion.semName) + Formatting.RESET).getString();
+                tooltip = Text.translatable("bolt.gui.tooltip.compatible_world", Formatting.GRAY + (versionInformation.modpackName() + " " + versionInformation.displayName()) + Formatting.RESET, Formatting.GRAY + (localData.modpackName + " " + localData.modpackVersion.displayName) + Formatting.RESET).getString();
             } else  {
                 idx = 16;
                 this.isCompatible = false;
                 //tooltip = Text.translatable("bolt.gui.tooltip.incompatible_server", (pingData.modpackName + " " + pingData.modpackVersion.semName), (localData.modpackName + " " + localData.modpackVersion.semName)).getString();
-                tooltip = Text.translatable("bolt.gui.tooltip.incompatible_world", (versionInformation.modpackName() + " " + versionInformation.semName()), (localData.modpackName + " " + localData.modpackVersion.semName)).getString();
+                tooltip = Text.translatable("bolt.gui.tooltip.incompatible_world", (versionInformation.modpackName() + " " + versionInformation.displayName()), (localData.modpackName + " " + localData.modpackVersion.displayName)).getString();
             }
 
 
