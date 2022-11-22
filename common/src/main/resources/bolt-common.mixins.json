@@ -4,11 +4,11 @@
   "package": "mine.block.bolt.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "CrashReportMixin",
     "EntityAccessor",
     "LevelInfoMixin",
     "LevelPropertiesMixin",
     "LivingEntityAccessor",
-    "CrashReportMixin",
     "LivingEntityMixin",
     "ServerEntityMixin",
     "ServerMetadataMixin",
@@ -18,14 +18,17 @@
     "client.ChatHudMixin",
     "client.ClientPlayerEntityMixin",
     "client.GameRendererMixin",
+    "client.MultiplayerScreenMixin",
     "client.PackEntryMixin",
+    "client.ScreenAccessor",
     "client.ServerEntryMixin",
     "client.ServerInfoMixin",
     "client.SplashOverlayMixin",
     "client.ToastManagerEntryMixin",
     "client.ToastVisibilityMixin",
     "client.WorldListWidgetMixin",
-    "client.WorldListWidgetMixin$WorldEntryMixin"
+    "client.WorldListWidgetMixin$WorldEntryMixin",
+    "client.ClickableWidgetAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

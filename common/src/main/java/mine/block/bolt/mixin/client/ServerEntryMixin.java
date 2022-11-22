@@ -44,6 +44,9 @@ public class ServerEntryMixin {
         int idx = 0;
         int idy = 0;
         String tooltip;
+        RenderSystem.setShaderTexture(0, Bolt.id("textures/gui/favorite-buttons.png"));
+        int widthAndHeightOfFavouriteBtn = entryHeight/3;
+        DrawableHelper.drawTexture(matrices, x - widthAndHeightOfFavouriteBtn*2, y + entryHeight/2-widthAndHeightOfFavouriteBtn/2, widthAndHeightOfFavouriteBtn, widthAndHeightOfFavouriteBtn, 0, 0, 14, 14, 28, 28);
 
         if (this.server.ping < 0) return;
         if (pingData == null) {
@@ -64,7 +67,6 @@ public class ServerEntryMixin {
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         RenderSystem.setShaderTexture(0, Bolt.id("textures/gui/bolt-icons.png"));
         DrawableHelper.drawTexture(matrices, x + entryWidth - 18, y + 10, 16, 16, idy, idx, 16, 16, 64, 64);
-
         int relativeMouseX = mouseX - x;
         int relativeMouseY = mouseY - y;
 
