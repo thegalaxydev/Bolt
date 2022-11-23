@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 // Experimental Warning (Forge)
 @Mixin(WorldListWidget.WorldEntry.class)
 public class WorldSelectionListEntryMixin {
+
     @Inject(method = "renderExperimentalWarning", at = @At("HEAD"), cancellable = true, remap = false)
     private void bolt$ignoreExperimentalWarningIcon(MatrixStack stack, int mouseX, int mouseY, int top, int left, CallbackInfo ci)
     {
