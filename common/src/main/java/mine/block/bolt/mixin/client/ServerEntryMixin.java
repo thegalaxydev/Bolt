@@ -39,13 +39,13 @@ public class ServerEntryMixin {
 
     @Inject(method = "render(Lnet/minecraft/client/util/math/MatrixStack;IIIIIIIZF)V", at = @At(value = "HEAD"))
     private void bolt$render(MatrixStack matrices, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta, CallbackInfo ci) {
-        if (!BoltConfig.modpackBranding.get().enabled) return;
+        if (!Bolt.CONFIG.modpackBranding.enabled) return;
         int m = mouseX - x;
         int n = mouseY - y;
 
         ServerInfo data = this.server;
         BrandingConfig pingData = data.getBrandData();
-        BrandingConfig localData = BoltConfig.modpackBranding.get();
+        BrandingConfig localData = Bolt.CONFIG.modpackBranding;
         int idx = 0;
         int idy = 0;
         String tooltip;

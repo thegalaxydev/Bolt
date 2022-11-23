@@ -1,6 +1,7 @@
 package mine.block.bolt.fabric.mixin;
 
 import com.mojang.serialization.Lifecycle;
+import mine.block.bolt.Bolt;
 import mine.block.bolt.config.BoltConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.world.CreateWorldScreen;
@@ -22,7 +23,7 @@ public abstract class IntegratedServerLoaderMixin {
     )
     private Lifecycle bolt$removeAdviceOnLoad(SaveProperties properties) {
         Lifecycle original = properties.getLifecycle();
-        if ((original == Lifecycle.stable() || original == Lifecycle.experimental()) && BoltConfig.disableExperimentalWarning.get()) {
+        if ((original == Lifecycle.stable() || original == Lifecycle.experimental()) && Bolt.CONFIG.disableExperimentalWarning) {
             return Lifecycle.stable();
         } else {
             return original;
@@ -34,7 +35,7 @@ public abstract class IntegratedServerLoaderMixin {
             cancellable = true
     )
     private static void bolt$removeAdviceOnCreation(MinecraftClient client, CreateWorldScreen parent, Lifecycle lifecycle, Runnable loader, CallbackInfo ci) {
-        if(BoltConfig.disableExperimentalWarning.get()) {
+        if(Bolt.CONFIG.disableExperimentalWarning) {
             loader.run();
             ci.cancel();
         }

@@ -56,7 +56,7 @@ public class WorldListWidgetMixin {
 
         @Inject(method = "play", at = @At("HEAD"), cancellable = true)
         private void bolt$play(CallbackInfo ci) {
-            if (!BoltConfig.modpackBranding.get().enabled) return;
+            if (!Bolt.CONFIG.modpackBranding.enabled) return;
             if (this.level.isUnavailable() || this.isCompatible) {
                 return;
             }
@@ -66,7 +66,7 @@ public class WorldListWidgetMixin {
                 versionInformation = new SimpleVersionInformation("Minecraft", "minecraft", "mc-" + level.getVersionInfo().getVersion().getId(), level.getVersionInfo().getVersionName(), level.getVersionInfo().getVersionName(), "DISABLED");
             }
             //BrandingConfig pingData = data.getBrandData();
-            BrandingConfig localData = BoltConfig.modpackBranding.get();
+            BrandingConfig localData = Bolt.CONFIG.modpackBranding;
 
             String string2 = "selectWorld.backupQuestion.snapshot";
             MutableText mutableText = Text.translatable(string2);
@@ -90,7 +90,7 @@ public class WorldListWidgetMixin {
 
         @Inject(method = "render", at = @At("RETURN"))
         private void bolt$render(MatrixStack matrices, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta, CallbackInfo ci) {
-            if (!BoltConfig.modpackBranding.get().enabled) return;
+            if (!Bolt.CONFIG.modpackBranding.enabled) return;
 //            String text = "Modpack Version: 1.0.0";
 //            this.client.textRenderer.draw(matrices, text, x + entryWidth - client.textRenderer.getWidth(text)/*, (float)(x + 32 + 3)*/, (float)(y + 1/*this.client.textRenderer.fontHeight + this.client.textRenderer.fontHeight + 3*/), 0x808080);
             int m = mouseX - x;
@@ -109,7 +109,7 @@ public class WorldListWidgetMixin {
 //            };
             SimpleVersionInformation versionInformation = level.getLevelInfo().getVersion();
             //BrandingConfig pingData = data.getBrandData();
-            BrandingConfig localData = BoltConfig.modpackBranding.get();
+            BrandingConfig localData = Bolt.CONFIG.modpackBranding;
             int idx;
             int idy = 0;
             String tooltip;

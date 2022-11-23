@@ -1,5 +1,6 @@
 package mine.block.bolt.mixin.client;
 
+import mine.block.bolt.Bolt;
 import mine.block.bolt.config.BoltConfig;
 import net.minecraft.client.sound.SoundManager;
 import net.minecraft.client.toast.Toast;
@@ -13,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class ToastVisibilityMixin {
     @Inject(method = "playSound", at = @At("HEAD"), cancellable = true)
     public void bolt$playSound(SoundManager soundManager, CallbackInfo ci) {
-        if (BoltConfig.skipToastFadeOut.get()) {
+        if (Bolt.CONFIG.skipToastFadeOut) {
             ci.cancel();
         }
     }

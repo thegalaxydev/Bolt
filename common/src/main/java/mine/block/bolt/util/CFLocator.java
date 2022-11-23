@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import mine.block.bolt.Bolt;
 import mine.block.bolt.brand.BrandingConfig;
 import mine.block.bolt.config.BoltConfig;
 
@@ -30,7 +31,7 @@ public class CFLocator {
     private final Gson gson = new Gson();
 
     public static String getHash() {
-        BrandingConfig config = BoltConfig.modpackBranding.get();
+        BrandingConfig config = Bolt.CONFIG.modpackBranding;
         return Hashing.sha256().hashString(config.modpackID + config.modpackName + config.modpackVersion.semName + config.modpackVersion.releaseType + config.modpackVersion.ID, StandardCharsets.UTF_8).toString();
     }
 
@@ -86,7 +87,7 @@ public class CFLocator {
     }
 
     private boolean matchHash(String ver) {
-        BrandingConfig config = BoltConfig.modpackBranding.get();
+        BrandingConfig config = Bolt.CONFIG.modpackBranding;
         return Hashing.sha256().hashString(config.modpackID + config.modpackName + config.modpackVersion.semName + config.modpackVersion.releaseType + config.modpackVersion.ID, StandardCharsets.UTF_8).toString().equals(ver);
     }
 

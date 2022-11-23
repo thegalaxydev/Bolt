@@ -1,5 +1,6 @@
 package mine.block.bolt.mixin;
 
+import mine.block.bolt.Bolt;
 import mine.block.bolt.config.BoltConfig;
 import net.minecraft.util.crash.CrashReport;
 import net.minecraft.util.crash.CrashReportSection;
@@ -31,7 +32,7 @@ public abstract class CrashReportMixin {
 
     @Inject(method = "writeToFile", at = @At("HEAD"))
     private void bolt$addBranding(File file, CallbackInfoReturnable<Boolean> cir) {
-        var branding = BoltConfig.modpackBranding.get();
+        var branding = Bolt.CONFIG.modpackBranding;
         if (branding.enabled) {
             var section = new CrashReportSection("Modpack Information");
             section.add("Modpack Name", branding.modpackName);

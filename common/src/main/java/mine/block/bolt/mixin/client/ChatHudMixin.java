@@ -1,5 +1,6 @@
 package mine.block.bolt.mixin.client;
 
+import mine.block.bolt.Bolt;
 import mine.block.bolt.config.BoltConfig;
 import net.minecraft.client.gui.hud.ChatHud;
 import org.spongepowered.asm.mixin.Mixin;
@@ -14,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class ChatHudMixin {
     @ModifyConstant(method = "addMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/message/MessageSignatureData;ILnet/minecraft/client/gui/hud/MessageIndicator;Z)V", constant = @Constant(intValue = 100), expect = 2)
     public int bolt$increaseMaxHistory(int original) {
-        if (BoltConfig.disableChatClearing.get()) {
+        if (Bolt.CONFIG.disableChatClearing) {
             return 16384;
         } else {
             return original;
@@ -23,7 +24,7 @@ public class ChatHudMixin {
 
     @Inject(method = "clear", at = @At("HEAD"), cancellable = true)
     public void bolt$clear(boolean bl, CallbackInfo ci) {
-        if (!BoltConfig.clearChatHistory.get()) {
+        if (!Bolt.CONFIG.clearChatHistory) {
             ci.cancel();
         }
     }

@@ -1,5 +1,6 @@
 package mine.block.bolt.mixin.client;
 
+import mine.block.bolt.Bolt;
 import mine.block.bolt.config.BoltConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.SplashOverlay;
@@ -24,14 +25,14 @@ public class SplashOverlayMixin {
 
     @ModifyVariable(method = "withAlpha", at = @At("HEAD"), ordinal = 1, argsOnly = true)
     private static int bolt$modifyWithAlpha(int value) {
-        if (BoltConfig.skipLoadingTransition.get()) {
+        if (Bolt.CONFIG.skipLoadingTransition) {
             return 255;
         } else return value;
     }
 
     @Inject(method = "render", at = @At("HEAD"))
     public void bolt$injectRenderHead(CallbackInfo ci) {
-        if (BoltConfig.skipLoadingTransition.get()) {
+        if (Bolt.CONFIG.skipLoadingTransition) {
             if (this.reloadCompleteTime > 1) {
                 this.client.setOverlay(null);
             }
@@ -40,7 +41,7 @@ public class SplashOverlayMixin {
 
     @ModifyVariable(method = "render", at = @At("STORE"), ordinal = 3)
     private float bolt$skipLoadingTransition(float value) {
-        if (BoltConfig.skipLoadingTransition.get()) {
+        if (Bolt.CONFIG.skipLoadingTransition) {
             return 1.0f;
         } else return value;
     }

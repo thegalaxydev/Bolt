@@ -1,5 +1,6 @@
 package mine.block.bolt.fabric;
 
+import mine.block.bolt.Bolt;
 import mine.block.bolt.Constants;
 import mine.block.bolt.client.ItemBlinkRenderer;
 import mine.block.bolt.config.BoltConfig;
@@ -15,7 +16,7 @@ public class BoltFabricClient implements ClientModInitializer {
     public void onInitializeClient() {
         EntityRendererRegistry.register(EntityType.ITEM, new ItemBlinkRenderer.Factory());
 
-        if(BoltConfig.enableHideHandKeybind.get()) {
+        if(Bolt.CONFIG.enableHideHandKeybind) {
             KeyBindingHelper.registerKeyBinding(Keybinds.hideHandKeybind);
             ClientTickEvents.END_CLIENT_TICK.register(client -> {
                 if(!Keybinds.hideHandKeybind.isPressed()) {

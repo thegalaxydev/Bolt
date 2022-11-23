@@ -29,7 +29,7 @@ public class BoltForge {
 
         @SubscribeEvent
         public static void screenInit(ScreenEvent.Opening event) {
-            if (BoltConfig.skipTitleFadeIn.get()) {
+            if (Bolt.CONFIG.skipTitleFadeIn) {
                 try {
                     if (event.getScreen() instanceof TitleScreen titleScreen) {
                         titleScreen.doBackgroundFade = false;
