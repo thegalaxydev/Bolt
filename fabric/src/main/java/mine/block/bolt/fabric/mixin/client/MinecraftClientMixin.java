@@ -1,5 +1,6 @@
 package mine.block.bolt.fabric.mixin.client;
 
+import mine.block.bolt.Bolt;
 import mine.block.bolt.config.BoltConfig;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
@@ -31,7 +32,7 @@ public class MinecraftClientMixin {
             target = "net/minecraft/client/network/ClientPlayerInteractionManager.attackBlock(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/util/math/Direction;)Z"),
             locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
     private void bolt$beforeStartingToBreakBlock(CallbackInfoReturnable<Boolean> cir, boolean flag, BlockHitResult blockhitresult, BlockPos pos) {
-        if(BoltConfig.enableCutThroughGrass.get()) {
+        if(Bolt.CONFIG.enableCutThroughGrass) {
             BlockState state = world.getBlockState(pos);
             if (state.getCollisionShape(this.world, pos).isEmpty() || state.getHardness(this.world, pos) == 0.0F) {
                 float reach = interactionManager.getReachDistance();

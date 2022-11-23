@@ -1,5 +1,6 @@
 package mine.block.bolt.mixin;
 
+import mine.block.bolt.Bolt;
 import mine.block.bolt.config.BoltConfig;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -16,11 +17,11 @@ public class LivingEntityMixin {
 
     @Inject(method = "setMovementSpeed", at = @At(value = "HEAD"), cancellable = true)
     public void bolt$setMovementSpeed(float pSpeed, CallbackInfo ci) {
-        if (!BoltConfig.enableQuickCrouch.get()) return;
+        if (!Bolt.CONFIG.enableQuickCrouch) return;
         LivingEntity livingEntity = (LivingEntity) (Object) this;
         if (livingEntity instanceof PlayerEntity playerEntity) {
             if (playerEntity.isSneaking()) {
-                this.movementSpeed = pSpeed * BoltConfig.quickCrouchSpeed.get();
+                this.movementSpeed = pSpeed * Bolt.CONFIG.quickCrouchSpeed;
                 ci.cancel();
             }
         }

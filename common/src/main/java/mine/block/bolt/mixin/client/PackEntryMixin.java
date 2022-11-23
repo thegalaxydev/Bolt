@@ -1,5 +1,6 @@
 package mine.block.bolt.mixin.client;
 
+import mine.block.bolt.Bolt;
 import mine.block.bolt.config.BoltConfig;
 import net.minecraft.client.gui.screen.pack.PackListWidget;
 import net.minecraft.resource.ResourcePackCompatibility;
@@ -18,7 +19,7 @@ public class PackEntryMixin {
             )
     )
     private boolean bolt$onRenderRedirectIsCompatible(ResourcePackCompatibility compatibility) {
-        return BoltConfig.disableResourcePackWarning.get() || compatibility.isCompatible();
+        return Bolt.CONFIG.disableResourcePackWarning || compatibility.isCompatible();
     }
 
     @Redirect(
@@ -29,6 +30,6 @@ public class PackEntryMixin {
             )
     )
     private boolean bolt$onMouseClickedRedirectIsCompatible(ResourcePackCompatibility compatibility) {
-        return BoltConfig.disableResourcePackWarning.get() || compatibility.isCompatible();
+        return Bolt.CONFIG.disableResourcePackWarning || compatibility.isCompatible();
     }
 }

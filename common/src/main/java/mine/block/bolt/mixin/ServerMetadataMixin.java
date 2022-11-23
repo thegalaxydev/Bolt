@@ -1,6 +1,7 @@
 package mine.block.bolt.mixin;
 
 import com.google.gson.*;
+import mine.block.bolt.Bolt;
 import mine.block.bolt.brand.BrandingConfig;
 import mine.block.bolt.config.BoltConfig;
 import mine.block.bolt.extension.BrandingInfoExtension;
@@ -37,8 +38,8 @@ public class ServerMetadataMixin implements BrandingInfoExtension {
         @Inject(method = "serialize(Lnet/minecraft/server/ServerMetadata;Ljava/lang/reflect/Type;Lcom/google/gson/JsonSerializationContext;)Lcom/google/gson/JsonElement;", at = @At("RETURN"))
         private void serialize(ServerMetadata serverMetadata, Type type, JsonSerializationContext jsonSerializationContext, CallbackInfoReturnable<JsonElement> cir) {
             JsonObject jsonObject = cir.getReturnValue().getAsJsonObject();
-            if (BoltConfig.modpackBranding.get().enabled) {
-                jsonObject.add("modpackData", gson.toJsonTree(BoltConfig.modpackBranding.get()));
+            if (Bolt.CONFIG.modpackBranding.enabled) {
+                jsonObject.add("modpackData", gson.toJsonTree(Bolt.CONFIG.modpackBranding));
             } else {
                 JsonObject d = new JsonObject();
                 d.addProperty("notEnabled", "y");
