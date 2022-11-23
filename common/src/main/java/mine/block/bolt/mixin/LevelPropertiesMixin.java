@@ -41,6 +41,7 @@ public class LevelPropertiesMixin implements SimpleBrandingVersionExtension {
                 dynamic.get("modpackVersion").get("modpackName").asString(DEFAULT.modpackName()),
                 dynamic.get("modpackVersion").get("modpackID").asString(DEFAULT.modpackID()),
                 dynamic.get("modpackVersion").get("ID").asString(DEFAULT.ID()),
+                dynamic.get("modpackVersion").get("displayName").asString(dynamic.get("modpackVersion").get("semName").asString(DEFAULT.semName())),
                 dynamic.get("modpackVersion").get("semName").asString(DEFAULT.semName()),
                 dynamic.get("modpackVersion").get("releaseType").asString(DEFAULT.releaseType())
         );
@@ -55,6 +56,7 @@ public class LevelPropertiesMixin implements SimpleBrandingVersionExtension {
         NbtCompound modpackVersion = new NbtCompound();
         modpackVersion.putString("ID", versionInformation.ID);
         modpackVersion.putString("releaseType", versionInformation.releaseType);
+        modpackVersion.putString("displayName", versionInformation.displayName);
         modpackVersion.putString("semName", versionInformation.semName);
         modpackVersion.putString("modpackID", brandingInfo.modpackID);
         modpackVersion.putString("modpackName", brandingInfo.modpackName);

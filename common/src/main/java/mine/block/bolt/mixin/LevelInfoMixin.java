@@ -29,6 +29,7 @@ public class LevelInfoMixin implements SimpleBrandingVersionExtension {
                 dynamic.get("modpackVersion").get("modpackName").asString(DEFAULT.modpackName()),
                 dynamic.get("modpackVersion").get("modpackID").asString(DEFAULT.modpackID()),
                 dynamic.get("modpackVersion").get("ID").asString(DEFAULT.ID()),
+                dynamic.get("modpackVersion").get("displayName").asString(dynamic.get("modpackVersion").get("semName").asString(DEFAULT.semName())),
                 dynamic.get("modpackVersion").get("semName").asString(DEFAULT.semName()),
                 dynamic.get("modpackVersion").get("releaseType").asString(DEFAULT.releaseType())
         );

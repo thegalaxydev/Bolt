@@ -60,10 +60,10 @@ public class ServerEntryMixin {
             tooltip = Text.translatable("bolt.gui.tooltip.bolt_disabled_server").getString();
         } else if (Utils.comparePingData(pingData)) {
             idx = 16;
-            tooltip = Text.translatable("bolt.gui.tooltip.compatible_server", Formatting.GRAY + (pingData.modpackName + " " + pingData.modpackVersion.semName) + Formatting.RESET, Formatting.GRAY + (localData.modpackName + " " + localData.modpackVersion.semName) + Formatting.RESET).getString();
+            tooltip = Text.translatable("bolt.gui.tooltip.compatible_server", Formatting.GRAY + (pingData.modpackName + " " + pingData.modpackVersion.displayName) + Formatting.RESET, Formatting.GRAY + (localData.modpackName + " " + localData.modpackVersion.displayName) + Formatting.RESET).getString();
         } else {
             idx = 16;
-            tooltip = Text.translatable("bolt.gui.tooltip.incompatible_server", (pingData.modpackName + " " + pingData.modpackVersion.semName), (localData.modpackName + " " + localData.modpackVersion.semName)).getString();
+            tooltip = Text.translatable("bolt.gui.tooltip.incompatible_server", (pingData.modpackName + " " + pingData.modpackVersion.displayName), (localData.modpackName + " " + localData.modpackVersion.displayName)).getString();
         }
 
         tooltip = tooltip + "\n \n" + Formatting.YELLOW + "⚡ Bolt";
